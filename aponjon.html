@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aponjon | আপনজন</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --teal: #2a9d8f;
+    --teal-dark: #1e7268;
+    --teal-light: #e8f7f5;
+    --orange: #e07b30;
+    --orange-dark: #c4621a;
+    --orange-light: #fdf0e6;
+    --green: #5a9e3a;
+    --green-dark: #3e7228;
+    --green-light: #edf7e8;
+    --purple: #7b5ea7;
+    --purple-dark: #5e4580;
+    --purple-light: #f2eef9;
+    --olive: #6b8c42;
+    --cream: #faf8f3;
+    --dark: #1a1a2e;
+    --text: #2d2d2d;
+    --text-light: #666;
+    --white: #fff;
+    --shadow: 0 8px 32px rgba(0,0,0,0.10);
+    --shadow-hover: 0 16px 48px rgba(0,0,0,0.18);
+    --radius: 18px;
+    --transition: all 0.3s cubic-bezier(.4,0,.2,1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Poppins', 'Hind Siliguri', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+  /* ===== PAGE SYSTEM ===== */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+    min-height: 68px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 800;
+    color: var(--white); letter-spacing: 2px;
+    cursor: pointer; text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+  .nav-links a {
+    color: rgba(255,255,255,0.88); text-decoration: none;
+    padding: 8px 14px; border-radius: 8px;
+    font-size: 0.92rem; font-weight: 500;
+    transition: var(--transition); font-family: 'Hind Siliguri', sans-serif;
+    white-space: nowrap;
+  }
+  .nav-links a:hover, .nav-links a.active-link {
+    background: rgba(255,255,255,0.18); color: #fff;
+  }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+  .hamburger span { width: 25px; height: 2px; background: #fff; border-radius: 2px; transition: var(--transition); }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 60%, #3dbfa8 100%);
+    padding: 70px 5% 60px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-block; background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff; font-size: 0.85rem; padding: 6px 18px;
+    border-radius: 50px; margin-bottom: 18px;
+    font-family: 'Hind Siliguri', sans-serif; letter-spacing: 1px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    color: #fff; font-weight: 800; line-height: 1.15;
+    margin-bottom: 10px; text-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+  .hero h1 span { color: var(--orange); }
+  .hero-bangla {
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    color: rgba(255,255,255,0.85); margin-bottom: 18px; font-weight: 500;
+  }
+  .hero p {
+    color: rgba(255,255,255,0.82); font-size: 1.05rem;
+    max-width: 560px; margin: 0 auto 30px;
+    font-family: 'Hind Siliguri', sans-serif; line-height: 1.7;
+  }
+  .hero-btn {
+    display: inline-block; background: var(--orange);
+    color: #fff; padding: 14px 36px; border-radius: 50px;
+    font-weight: 600; font-size: 1rem; cursor: pointer;
+    border: none; transition: var(--transition);
+    box-shadow: 0 4px 20px rgba(224,123,48,0.4);
+    font-family: 'Hind Siliguri', sans-serif;
+  }
+  .hero-btn:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(224,123,48,0.5); }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    text-align: center; padding: 50px 5% 10px;
+  }
+  .section-label h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--dark);
+    margin-bottom: 6px;
+  }
+  .section-label p { color: var(--text-light); font-family: 'Hind Siliguri', sans-serif; font-size: 1rem; }
+  .divider { width: 60px; height: 4px; background: var(--teal); border-radius: 2px; margin: 12px auto 0; }
+
+  /* ===== CARDS GRID ===== */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px; padding: 36px 5% 20px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .card {
+    border-radius: var(--radius); padding: 32px 26px 28px;
+    cursor: pointer; transition: var(--transition);
+    box-shadow: var(--shadow); position: relative; overflow: hidden;
+    border: 2px solid transparent;
+  }
+  .card::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 160px; height: 160px; border-radius: 50%;
+    opacity: 0.08; transition: var(--transition);
+  }
+  .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+  .card:hover::before { transform: scale(1.3); opacity: 0.14; }
+  .card.teal { background: var(--teal-light); border-color: var(--teal); }
+  .card.teal::before { background: var(--teal); }
+  .card.orange { background: var(--orange-light); border-color: var(--orange); }
+  .card.orange::before { background: var(--orange); }
+  .card.green { background: var(--green-light); border-color: var(--green); }
+  .card.green::before { background: var(--green); }
+  .card.purple { background: var(--purple-light); border-color: var(--purple); }
+  .card.purple::before { background: var(--purple); }
+
+  .card-icon { font-size: 2.4rem; margin-bottom: 14px; }
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;
+  }
+  .card.teal h3 { color: var(--teal-dark); }
+  .card.orange h3 { color: var(--orange-dark); }
+  .card.green h3 { color: var(--green-dark); }
+  .card.purple h3 { color: var(--purple-dark); }
+  .card-bangla { font-family: 'Hind Siliguri', sans-serif; font-size: 1rem; color: var(--text-light); margin-bottom: 14px; }
+  .card ul { list-style: none; }
+  .card ul li {
+    font-size: 0.9rem; padding: 5px 0;
+    font-family: 'Hind Siliguri', sans-serif;
+    display: flex; align-items: center; gap: 8px; color: var(--text);
+  }
+  .card ul li::before { content: '●'; font-size: 0.6rem; }
+  .card.teal ul li::before { color: var(--teal); }
+  .card.orange ul li::before { color: var(--orange); }
+  .card.green ul li::before { color: var(--green); }
+  .card.purple ul li::before { color: var(--purple); }
+  .card-arrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 18px; font-size: 0.88rem; font-weight: 600;
+    font-family: 'Hind Siliguri', sans-serif;
+    transition: var(--transition);
+  }
+  .card.teal .card-arrow { color: var(--teal-dark); }
+  .card.orange .card-arrow { color: var(--orange-dark); }
+  .card.green .card-arrow { color: var(--green-dark); }
+  .card.purple .card-arrow { color: var(--purple-dark); }
+  .card:hover .card-arrow { gap: 12px; }
+
+  /* ===== AGRO BANNER ===== */
+  .agro-banner {
+    margin: 24px 5% 50px;
+    max-width: 1200px; margin-left: auto; margin-right: auto;
+    background: linear-gradient(135deg, #4a7c2f 0%, var(--olive) 50%, #8aaa55 100%);
+    border-radius: var(--radius); padding: 36px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px; cursor: pointer; transition: var(--transition);
+    box-shadow: var(--shadow); flex-wrap: wrap;
+  }
+  .agro-banner:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+  .agro-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; color: #fff; margin-bottom: 4px;
+  }
+  .agro-text p { color: rgba(255,255,255,0.85); font-family: 'Hind Siliguri', sans-serif; font-size: 1rem; }
+  .agro-icons { font-size: 2.8rem; display: flex; gap: 16px; }
+  .agro-btn {
+    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.5);
+    color: #fff; padding: 12px 28px; border-radius: 50px;
+    font-weight: 600; cursor: pointer; font-family: 'Hind Siliguri', sans-serif;
+    transition: var(--transition); white-space: nowrap;
+  }
+  .agro-btn:hover { background: rgba(255,255,255,0.35); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,0.8);
+    padding: 50px 5% 28px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 36px; max-width: 1200px; margin: 0 auto 36px;
+  }
+  .footer-brand .nav-logo { font-size: 1.6rem; margin-bottom: 10px; display: block; cursor: default; }
+  .footer-brand p { font-size: 0.88rem; line-height: 1.7; font-family: 'Hind Siliguri', sans-serif; color: rgba(255,255,255,0.65); }
+  .footer-col h4 { color: #fff; font-size: 1rem; margin-bottom: 14px; font-weight: 600; }
+  .footer-col a { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.88rem; margin-bottom: 8px; font-family: 'Hind Siliguri', sans-serif; transition: var(--transition); cursor: pointer; }
+  .footer-col a:hover { color: var(--teal); }
+  .footer-contact p { font-size: 0.88rem; font-family: 'Hind Siliguri', sans-serif; color: rgba(255,255,255,0.65); margin-bottom: 8px; display: flex; gap: 8px; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center; font-size: 0.82rem; color: rgba(255,255,255,0.45); font-family: 'Hind Siliguri', sans-serif; max-width: 1200px; margin: 0 auto; }
+
+  /* ===== SUBPAGE HERO ===== */
+  .sub-hero {
+    padding: 60px 5% 50px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .sub-hero.teal-bg { background: linear-gradient(135deg, var(--teal-dark), var(--teal)); }
+  .sub-hero.orange-bg { background: linear-gradient(135deg, var(--orange-dark), var(--orange)); }
+  .sub-hero.green-bg { background: linear-gradient(135deg, var(--green-dark), var(--green)); }
+  .sub-hero.purple-bg { background: linear-gradient(135deg, var(--purple-dark), var(--purple)); }
+  .sub-hero.olive-bg { background: linear-gradient(135deg, #3e6b22, var(--olive)); }
+  .sub-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,4vw,2.8rem); color: #fff; margin-bottom: 8px; }
+  .sub-hero .bangla-title { font-family: 'Hind Siliguri', sans-serif; font-size: clamp(1.2rem,2.5vw,1.6rem); color: rgba(255,255,255,0.85); margin-bottom: 12px; }
+  .sub-hero p { color: rgba(255,255,255,0.78); font-family: 'Hind Siliguri', sans-serif; font-size: 1rem; max-width: 520px; margin: 0 auto; }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35);
+    color: #fff; padding: 10px 22px; border-radius: 50px;
+    cursor: pointer; font-family: 'Hind Siliguri', sans-serif;
+    font-size: 0.9rem; transition: var(--transition); margin-bottom: 28px;
+    text-decoration: none;
+  }
+  .back-btn:hover { background: rgba(255,255,255,0.3); }
+
+  /* ===== SUBPAGE CONTENT ===== */
+  .sub-content { padding: 50px 5%; max-width: 1100px; margin: 0 auto; }
+  .sub-section { margin-bottom: 48px; }
+  .sub-section h2 {
+    font-family: 'Playfair Display', serif; font-size: 1.6rem;
+    margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+  }
+  .sub-section .bangla-sub { font-family: 'Hind Siliguri', sans-serif; font-size: 1rem; color: var(--text-light); margin-bottom: 20px; }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .feat-card {
+    background: #fff; border-radius: 14px; padding: 24px 20px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07); transition: var(--transition);
+    border-top: 4px solid transparent;
+  }
+  .feat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.12); }
+  .feat-card.t { border-top-color: var(--teal); }
+  .feat-card.o { border-top-color: var(--orange); }
+  .feat-card.g { border-top-color: var(--green); }
+  .feat-card.p { border-top-color: var(--purple); }
+  .feat-card.ol { border-top-color: var(--olive); }
+  .feat-icon { font-size: 2rem; margin-bottom: 12px; }
+  .feat-card h4 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+  .feat-card p { font-size: 0.88rem; color: var(--text-light); font-family: 'Hind Siliguri', sans-serif; line-height: 1.6; }
+
+  .info-box {
+    background: #fff; border-radius: 14px; padding: 28px 28px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07); margin-bottom: 24px;
+  }
+  .info-box h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 10px; font-family: 'Hind Siliguri', sans-serif; }
+  .info-box p { font-size: 0.92rem; color: var(--text-light); font-family: 'Hind Siliguri', sans-serif; line-height: 1.8; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .tag {
+    padding: 6px 16px; border-radius: 50px; font-size: 0.82rem;
+    font-family: 'Hind Siliguri', sans-serif; font-weight: 500;
+  }
+  .tag.t { background: var(--teal-light); color: var(--teal-dark); }
+  .tag.o { background: var(--orange-light); color: var(--orange-dark); }
+  .tag.g { background: var(--green-light); color: var(--green-dark); }
+  .tag.p { background: var(--purple-light); color: var(--purple-dark); }
+  .tag.ol { background: #edf4e2; color: #3e6b22; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; width: 100%; padding: 12px 0; }
+    .nav-links.open { display: flex; }
+    nav { flex-wrap: wrap; padding: 0 5%; }
+    .hamburger { display: flex; }
+    .agro-banner { padding: 28px 24px; }
+    .cards-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .agro-icons { display: none; }
+  }
+  @media (max-width: 480px) {
+    .cards-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+  .fade-up { animation: fadeUp 0.55s ease both; }
+  .fade-up-2 { animation: fadeUp 0.55s 0.1s ease both; }
+  .fade-up-3 { animation: fadeUp 0.55s 0.2s ease both; }
+  .fade-up-4 { animation: fadeUp 0.55s 0.3s ease both; }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav id="main-nav">
+  <div class="nav-logo" onclick="showPage('home')">AP<span>O</span>NJON</div>
+  <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="nav-links" id="nav-links">
+    <a href="#" onclick="showPage('home')" class="active-link" id="nav-home">হোম (Home)</a>
+    <a href="#" onclick="showPage('academy')" id="nav-academy">একাডেমি</a>
+    <a href="#" onclick="showPage('foods')" id="nav-foods">খাদ্য ও পণ্য</a>
+    <a href="#" onclick="showPage('hygiene')" id="nav-hygiene">হাইজিন প্রোডাক্টস</a>
+    <a href="#" onclick="showPage('entertainment')" id="nav-entertainment">বিনোদন</a>
+    <a href="#" onclick="showPage('contact')" id="nav-contact">যোগাযোগ</a>
+  </div>
+</nav>
+
+<!-- ===================== HOME PAGE ===================== -->
+<div class="page active" id="page-home">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">🌙 আস্সালামু আলাইকুম — Welcome to Aponjon</div>
+    <h1 class="fade-up">Your Journey to<br/><span>Better Living</span></h1>
+    <div class="hero-bangla fade-up-2">আপনার সুন্দর জীবনের সঙ্গী — আপনজন</div>
+    <p class="fade-up-3">Explore and connect with Aponjon | Islamic values, quality living, and community — all in one place.</p>
+    <button class="hero-btn fade-up-4" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">Explore Now &darr;</button>
+  </div>
+
+  <!-- Categories -->
+  <div class="section-label" id="categories">
+    <h2>Our Categories | আমাদের বিভাগসমূহ</h2>
+    <p>Everything you need for a meaningful, balanced life</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="cards-grid">
+    <!-- Islamic Knowledge -->
+    <div class="card teal fade-up" onclick="showPage('academy')">
+      <div class="card-icon">📖</div>
+      <h3>Islamic Knowledge & Practice</h3>
+      <div class="card-bangla">ইসলামিক জ্ঞান ও অনুশীলন</div>
+      <ul>
+        <li>APONJON Fardh Ilm Academy</li>
+        <li>Aponjon Islamic Fashion</li>
+      </ul>
+      <div class="card-arrow">Explore &rarr;</div>
+    </div>
+
+    <!-- Quality Living -->
+    <div class="card orange fade-up-2" onclick="showPage('foods')">
+      <div class="card-icon">🥦</div>
+      <h3>Quality Living & Products</h3>
+      <div class="card-bangla">মানসম্পন্ন জীবনযাপন ও পণ্য</div>
+      <ul>
+        <li>APONJON Pure Foods (Organic)</li>
+        <li>House and Kitchen</li>
+      </ul>
+      <div class="card-arrow">Explore &rarr;</div>
+    </div>
+
+    <!-- Growth & Learning -->
+    <div class="card green fade-up-3" onclick="showPage('education')">
+      <div class="card-icon">🎓</div>
+      <h3>Growth & Learning</h3>
+      <div class="card-bangla">বিকাশ ও শিক্ষা</div>
+      <ul>
+        <li>Education (প্রযুক্তিভিত্তিক জ্ঞান)</li>
+      </ul>
+      <div class="card-arrow">Explore &rarr;</div>
+    </div>
+
+    <!-- Leisure & Community -->
+    <div class="card purple fade-up-4" onclick="showPage('entertainment')">
+      <div class="card-icon">🎬</div>
+      <h3>Leisure & Community</h3>
+      <div class="card-bangla">বিনোদন ও কমিউনিটি</div>
+      <ul>
+        <li>Entertainment (পরিবার-বান্ধব)</li>
+        <li>Aponjon Tourism</li>
+      </ul>
+      <div class="card-arrow">Explore &rarr;</div>
+    </div>
+  </div>
+
+  <!-- Agro Banner -->
+  <div class="agro-banner" style="margin:24px 5% 50px;" onclick="showPage('agro')">
+    <div class="agro-text">
+      <h3>🌱 Sustainable Projects | টেকসই প্রকল্প</h3>
+      <p>Aponjon Small Agro Project — স্বাবলম্বী ও সুস্থ জীবন</p>
+    </div>
+    <div class="agro-icons">🌿🚜💧</div>
+    <button class="agro-btn">Learn More &rarr;</button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="cursor:default">AP<span style="color:var(--orange)">O</span>NJON</div>
+        <p>Explore and connect with Aponjon. Your journey to better living — grounded in Islamic values and community.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a onclick="showPage('academy')">একাডেমি</a>
+        <a onclick="showPage('foods')">খাদ্য ও পণ্য</a>
+        <a onclick="showPage('hygiene')">হাইজিন প্রোডাক্টস</a>
+        <a onclick="showPage('entertainment')">বিনোদন</a>
+        <a onclick="showPage('agro')">Agro Project</a>
+        <a onclick="showPage('tourism')">Tourism</a>
+      </div>
+      <div class="footer-col footer-contact">
+        <h4>Contact Us | যোগাযোগ</h4>
+        <p>📧 info@aponjon.com</p>
+        <p>📞 +880 1700-000000</p>
+        <p>📍 Dhaka, Bangladesh</p>
+        <p>🌐 www.aponjon.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Aponjon. All rights reserved. | আপনজন — আপনার সুন্দর জীবনের সঙ্গী
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== ACADEMY PAGE ===================== -->
+<div class="page" id="page-academy">
+  <nav style="display:none"></nav>
+  <div class="sub-hero teal-bg">
+    <a class="back-btn" onclick="showPage('home')">&#8592; Back to Home</a>
+    <h1>APONJON Fardh Ilm Academy</h1>
+    <div class="bangla-title">ইসলামিক শিক্ষা | ফরজ আইন শিক্ষা</div>
+    <p>Learn the essential knowledge every Muslim must know — accessible, authentic, and community-driven.</p>
+  </div>
+  <div class="sub-content">
+    <div class="sub-section">
+      <h2 style="color:var(--teal-dark)">📚 Islamic Education | ইসলামিক শিক্ষা</h2>
+      <div class="bangla-sub">ফরজ আইন শিক্ষা — প্রতিটি মুসলিমের জন্য আবশ্যক জ্ঞান</div>
+      <div class="features-grid">
+        <div class="feat-card t">
+          <div class="feat-icon">🕌</div>
+          <h4>Fardh Ilm Courses</h4>
+          <p>Essential obligatory Islamic knowledge for every Muslim — aqeedah, fiqh, ibadah.</p>
+        </div>
+        <div class="feat-card t">
+          <div class="feat-icon">📖</div>
+          <h4>Quran Learning</h4>
+          <p>Tajweed, Hifz support, and Tafsir classes for all ages and skill levels.</p>
+        </div>
+        <div class="feat-card t">
+          <div class="feat-icon">👨‍👩‍👧</div>
+          <h4>Family Islamic Classes</h4>
+          <p>Courses designed for families — parents, children, and youth learning together.</p>
+        </div>
+        <div class="feat-card t">
+          <div class="feat-icon">🎧</div>
+          <h4>Online Live Sessions</h4>
+          <p>Interactive live classes with qualified scholars accessible from anywhere in Bangladesh.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sub-section">
+      <h2 style="color:var(--teal-dark)">👗 Aponjon Islamic Fashion</h2>
+      <div class="bangla-sub">ইসলামিক ফ্যাশন — মাজিত ও আধুনিক পোশাক</div>
+      <div class="features-grid">
+        <div class="feat-card t">
+          <div class="feat-icon">🧕</div>
+          <h4>Women's Modest Wear</h4>
+          <p>Modern abayas, hijabs, and modest clothing — stylish yet fully Islamic.</p>
+        </div>
+        <div class="feat-card t">
+          <div class="feat-icon">👘</div>
+          <h4>Men's Islamic Clothing</h4>
+          <p>Panjabis, jubba, and kurtas — elegant traditional designs for everyday wear.</p>
+        </div>
+        <div class="feat-card t">
+          <div class="feat-icon">👶</div>
+          <h4>Kids Islamic Fashion</h4>
+          <p>Cute and comfortable Islamic clothing designed specially for children.</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-box">
+      <h3>🌙 Why Choose Aponjon Academy?</h3>
+      <p>We provide authentic Islamic education rooted in the Quran and Sunnah, taught by qualified scholars. Our goal is to make obligatory Islamic knowledge accessible to every Bangladeshi Muslim family — online and offline.</p>
+      <div class="tag-row">
+        <span class="tag t">Authentic Sources</span>
+        <span class="tag t">Qualified Scholars</span>
+        <span class="tag t">Bilingual (বাংলা + English)</span>
+        <span class="tag t">All Ages Welcome</span>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border:none">&copy; 2025 Aponjon | <a onclick="showPage('home')" style="color:var(--teal);cursor:pointer">Back to Home</a></div>
+  </footer>
+</div>
+
+<!-- ===================== FOODS PAGE ===================== -->
+<div class="page" id="page-foods">
+  <div class="sub-hero orange-bg">
+    <a class="back-btn" onclick="showPage('home')">&#8592; Back to Home</a>
+    <h1>APONJON Pure Foods & Living</h1>
+    <div class="bangla-title">খাঁটি ও অর্গানিক খাদ্য | গৃহ ও রান্নাঘর</div>
+    <p>Chemical-free, organic food and quality home essentials for a healthier, halal lifestyle.</p>
+  </div>
+  <div class="sub-content">
+    <div class="sub-section">
+      <h2 style="color:var(--orange-dark)">🥗 Pure Organic Foods | অর্গানিক খাদ্য</h2>
+      <div class="bangla-sub">রাসায়নিক মুক্ত ও স্বাস্থ্যকর খাদ্য পণ্য</div>
+      <div class="features-grid">
+        <div class="feat-card o">
+          <div class="feat-icon">🍯</div>
+          <h4>Pure Honey & Natural Products</h4>
+          <p>100% pure, unprocessed honey and natural herbal products directly from trusted farms.</p>
+        </div>
+        <div class="feat-card o">
+          <div class="feat-icon">🌾</div>
+          <h4>Organic Rice & Grains</h4>
+          <p>Chemical-free rice, wheat, and grain products sourced from verified organic farms.</p>
+        </div>
+        <div class="feat-card o">
+          <div class="feat-icon">🥛</div>
+          <h4>Dairy & Fresh Products</h4>
+          <p>Fresh, pure milk and dairy products without additives or preservatives.</p>
+        </div>
+        <div class="feat-card o">
+          <div class="feat-icon">🥦</div>
+          <h4>Seasonal Vegetables</h4>
+          <p>Locally grown, pesticide-free seasonal vegetables delivered fresh to your door.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sub-section">
+      <h2 style="color:var(--orange-dark)">🏠 House & Kitchen | গৃহ ও রান্নাঘর</h2>
+      <div class="bangla-sub">প্রয়োজনীয় সামগ্রী — ঘর ও রান্নাঘরের জন্য</div>
+      <div class="features-grid">
+        <div class="feat-card o">
+          <div class="feat-icon">🍳</div>
+          <h4>Kitchen Essentials</h4>
+          <p>Quality cookware, utensils, and kitchen tools for the modern Bangladeshi home.</p>
+        </div>
+        <div class="feat-card o">
+          <div class="feat-icon">🛋️</div>
+          <h4>Home Décor & Furniture</h4>
+          <p>Islamic-inspired home décor, prayer rugs, wall art, and furniture for every room.</p>
+        </div>
+        <div class="feat-card o">
+          <div class="feat-icon">🧹</div>
+          <h4>Cleaning & Hygiene</h4>
+          <p>Natural, halal-certified cleaning products safe for your family and environment.</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-box">
+      <h3>✅ Our Quality Promise</h3>
+      <p>Every product sold through Aponjon is carefully verified — halal certified, free from harmful chemicals, and sourced from trusted local and organic suppliers. We believe healthy living starts with what you eat and how you live.</p>
+      <div class="tag-row">
+        <span class="tag o">100% Halal</span>
+        <span class="tag o">Organic Certified</span>
+        <span class="tag o">Chemical Free</span>
+        <span class="tag o">Local Farmers</span>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border:none">&copy; 2025 Aponjon | <a onclick="showPage('home')" style="color:var(--orange);cursor:pointer">Back to Home</a></div>
+  </footer>
+</div>
+
+<!-- ===================== HYGIENE PAGE ===================== -->
+<div class="page" id="page-hygiene">
+  <div class="sub-hero teal-bg">
+    <a class="back-btn" onclick="showPage('home')">&#8592; Back to Home</a>
+    <h1>Hygiene Products | হাইজিন প্রোডাক্টস</h1>
+    <div class="bangla-title">পরিষ্কার-পরিচ্ছন্নতা ও স্বাস্থ্য পণ্য</div>
+    <p>Halal-certified personal care and hygiene products for the whole family.</p>
+  </div>
+  <div class="sub-content">
+    <div class="sub-section">
+      <h2 style="color:var(--teal-dark)">🧴 Personal Care | ব্যক্তিগত যত্ন</h2>
+      <div class="bangla-sub">হালাল সার্টিফাইড ও প্রাকৃতিক উপাদানে তৈরি পণ্য</div>
+      <div class="features-grid">
+        <div class="feat-card t">
+          <div class="feat-icon">🧼</div>
+          <h4>Natural Soaps & Cleansers</h4>
+          <p>Handmade natural soaps with organic ingredients — free from alcohol and harmful chemicals.</p>
+        </div>
+        <div class="feat-card t">
+          <div class="feat-icon">🦷</div>
+          <h4>Oral Care (Miswak Based)</h4>
+          <p>Miswak-based toothpaste and oral care products following Sunnah hygiene practices.</p>
+        </div>
+        <div class="feat-card t">
+          <div class="feat-icon">💆</div>
+          <h4>Hair & Skin Care</h4>
+          <p>Natural oils, herbal hair treatments, and alcohol-free skin care products.</p>
+        </div>
+        <div class="feat-card t">
+          <div class="feat-icon">👶</div>
+          <h4>Baby & Child Care</h4>
+          <p>Gentle, safe, halal-certified products specially formulated for babies and children.</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-box">
+      <h3>🌿 Why Halal Hygiene Matters</h3>
+      <p>Many conventional hygiene products contain alcohol, animal-derived ingredients, or harmful chemicals. Aponjon brings you certified halal alternatives that are safe, natural, and aligned with Islamic values — without compromising on quality or effectiveness.</p>
+      <div class="tag-row">
+        <span class="tag t">Halal Certified</span>
+        <span class="tag t">Alcohol Free</span>
+        <span class="tag t">Natural Ingredients</span>
+        <span class="tag t">Family Safe</span>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border:none">&copy; 2025 Aponjon | <a onclick="showPage('home')" style="color:var(--teal);cursor:pointer">Back to Home</a></div>
+  </footer>
+</div>
+
+<!-- ===================== EDUCATION PAGE ===================== -->
+<div class="page" id="page-education">
+  <div class="sub-hero green-bg">
+    <a class="back-btn" onclick="showPage('home')">&#8592; Back to Home</a>
+    <h1>Education | শিক্ষা</h1>
+    <div class="bangla-title">প্রযুক্তিভিত্তিক জ্ঞান ও দক্ষতা উন্নয়ন</div>
+    <p>Tech-based knowledge and skill development for modern Bangladeshi learners of all ages.</p>
+  </div>
+  <div class="sub-content">
+    <div class="sub-section">
+      <h2 style="color:var(--green-dark)">💻 Technology & Skills | প্রযুক্তি ও দক্ষতা</h2>
+      <div class="bangla-sub">আধুনিক প্রযুক্তি শিক্ষা — সবার জন্য</div>
+      <div class="features-grid">
+        <div class="feat-card g">
+          <div class="feat-icon">💻</div>
+          <h4>Digital Literacy</h4>
+          <p>Basic to advanced computer and internet skills for students, parents, and professionals.</p>
+        </div>
+        <div class="feat-card g">
+          <div class="feat-icon">📱</div>
+          <h4>Freelancing & Online Work</h4>
+          <p>Practical courses on freelancing, graphic design, content creation, and online income.</p>
+        </div>
+        <div class="feat-card g">
+          <div class="feat-icon">🔬</div>
+          <h4>Science & Research</h4>
+          <p>Educational content connecting Islamic perspectives with modern science and knowledge.</p>
+        </div>
+        <div class="feat-card g">
+          <div class="feat-icon">📚</div>
+          <h4>Academic Support</h4>
+          <p>Study materials, tutoring support, and learning resources for school and university students.</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-box">
+      <h3>🎯 Our Educational Vision</h3>
+      <p>Aponjon Education bridges the gap between Islamic values and modern knowledge. We believe every Bangladeshi Muslim deserves access to quality education that prepares them for both this world and the next — combining deen and duniya in a balanced approach.</p>
+      <div class="tag-row">
+        <span class="tag g">All Ages</span>
+        <span class="tag g">Bilingual Content</span>
+        <span class="tag g">Islamic Perspective</span>
+        <span class="tag g">Practical Skills</span>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border:none">&copy; 2025 Aponjon | <a onclick="showPage('home')" style="color:var(--green);cursor:pointer">Back to Home</a></div>
+  </footer>
+</div>
+
+<!-- ===================== ENTERTAINMENT PAGE ===================== -->
+<div class="page" id="page-entertainment">
+  <div class="sub-hero purple-bg">
+    <a class="back-btn" onclick="showPage('home')">&#8592; Back to Home</a>
+    <h1>Leisure & Community</h1>
+    <div class="bangla-title">বিনোদন ও পর্যটন | পরিবার-বান্ধব কন্টেন্ট</div>
+    <p>Family-friendly entertainment and travel experiences rooted in Islamic values.</p>
+  </div>
+  <div class="sub-content">
+    <div class="sub-section">
+      <h2 style="color:var(--purple-dark)">🎬 Entertainment | বিনোদন</h2>
+      <div class="bangla-sub">পরিবার-বান্ধব কন্টেন্ট — ইসলামিক মূল্যবোধে</div>
+      <div class="features-grid">
+        <div class="feat-card p">
+          <div class="feat-icon">🎥</div>
+          <h4>Islamic Documentaries</h4>
+          <p>Inspiring documentaries on Islamic history, scholars, and Muslim civilization worldwide.</p>
+        </div>
+        <div class="feat-card p">
+          <div class="feat-icon">🎮</div>
+          <h4>Family Games & Activities</h4>
+          <p>Halal-friendly games and activities that bring families together for wholesome fun.</p>
+        </div>
+        <div class="feat-card p">
+          <div class="feat-icon">📺</div>
+          <h4>Kids Islamic Content</h4>
+          <p>Educational and entertaining videos, stories, and cartoons for Muslim children.</p>
+        </div>
+        <div class="feat-card p">
+          <div class="feat-icon">🎵</div>
+          <h4>Nasheeds & Islamic Audio</h4>
+          <p>Beautiful nasheeds, Quran recitations, and Islamic audio content for all ages.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sub-section">
+      <h2 style="color:var(--purple-dark)">✈️ Aponjon Tourism | পর্যটন</h2>
+      <div class="bangla-sub">দেশ ও বিদেশ ভ্রমণ — ইসলামিক ট্যুর প্যাকেজ</div>
+      <div class="features-grid">
+        <div class="feat-card p">
+          <div class="feat-icon">🕋</div>
+          <h4>Umrah & Hajj Packages</h4>
+          <p>Guided Umrah and Hajj tours with full support — from visa to accommodation in Makkah.</p>
+        </div>
+        <div class="feat-card p">
+          <div class="feat-icon">🏛️</div>
+          <h4>Islamic Heritage Tours</h4>
+          <p>Visit historic Islamic sites across Turkey, Jordan, Palestine, and across the Muslim world.</p>
+        </div>
+        <div class="feat-card p">
+          <div class="feat-icon">🇧🇩</div>
+          <h4>Bangladesh Local Tours</h4>
+          <p>Explore the beauty of Bangladesh — mosques, nature, and cultural heritage destinations.</p>
+        </div>
+        <div class="feat-card p">
+          <div class="feat-icon">🌍</div>
+          <h4>International Halal Travel</h4>
+          <p>Halal-friendly international travel packages with halal food and prayer facilities guaranteed.</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-box">
+      <h3>🌙 Entertainment the Halal Way</h3>
+      <p>Aponjon believes leisure and fun are an important part of a balanced Muslim life. All our entertainment content is carefully curated to be family-friendly, Islamic-values aligned, and free from inappropriate content — so you can relax and enjoy with peace of mind.</p>
+      <div class="tag-row">
+        <span class="tag p">Family Friendly</span>
+        <span class="tag p">Halal Certified</span>
+        <span class="tag p">All Ages</span>
+        <span class="tag p">Islamic Values</span>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border:none">&copy; 2025 Aponjon | <a onclick="showPage('home')" style="color:var(--purple);cursor:pointer">Back to Home</a></div>
+  </footer>
+</div>
+
+<!-- ===================== TOURISM PAGE ===================== -->
+<div class="page" id="page-tourism">
+  <div class="sub-hero purple-bg">
+    <a class="back-btn" onclick="showPage('home')">&#8592; Back to Home</a>
+    <h1>Aponjon Tourism | পর্যটন</h1>
+    <div class="bangla-title">দেশ ও বিদেশ ভ্রমণ — হালাল ট্যুর</div>
+    <p>Discover the world through a Muslim lens — halal travel, Islamic heritage, and meaningful journeys.</p>
+  </div>
+  <div class="sub-content">
+    <div class="features-grid">
+      <div class="feat-card p"><div class="feat-icon">🕋</div><h4>Umrah Packages</h4><p>Affordable guided Umrah packages with complete support from Dhaka to Makkah and back.</p></div>
+      <div class="feat-card p"><div class="feat-icon">🇹🇷</div><h4>Turkey & Islamic Heritage</h4><p>Explore Istanbul, Hagia Sophia, and the rich Ottoman Islamic heritage of Turkey.</p></div>
+      <div class="feat-card p"><div class="feat-icon">🇯🇴</div><h4>Jordan & Palestine Tours</h4><p>Visit Masjid Al-Aqsa, the Dead Sea, Petra, and historic sites of the Holy Land.</p></div>
+      <div class="feat-card p"><div class="feat-icon">🇧🇩</div><h4>Bangladesh Heritage Tours</h4><p>Discover the Sixty Dome Mosque, Sundarbans, Cox's Bazar, and beautiful Bangladesh.</p></div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border:none">&copy; 2025 Aponjon | <a onclick="showPage('home')" style="color:var(--purple);cursor:pointer">Back to Home</a></div>
+  </footer>
+</div>
+
+<!-- ===================== AGRO PAGE ===================== -->
+<div class="page" id="page-agro">
+  <div class="sub-hero olive-bg">
+    <a class="back-btn" onclick="showPage('home')">&#8592; Back to Home</a>
+    <h1>APONJON Small Agro Project</h1>
+    <div class="bangla-title">ক্ষুদ্র কৃষি প্রকল্প — স্বাবলম্বী ও সুস্থ জীবন</div>
+    <p>Empowering Bangladeshi families through sustainable, small-scale organic farming and agriculture.</p>
+  </div>
+  <div class="sub-content">
+    <div class="sub-section">
+      <h2 style="color:#3e6b22">🌱 Our Agro Vision | কৃষি দর্শন</h2>
+      <div class="bangla-sub">স্বাবলম্বিতা, পরিবেশ রক্ষা ও সুস্থ জীবনযাপন</div>
+      <div class="features-grid">
+        <div class="feat-card ol">
+          <div class="feat-icon">🌿</div>
+          <h4>Home Gardening</h4>
+          <p>Start your own organic home garden — we provide seeds, tools, guidance, and ongoing support.</p>
+        </div>
+        <div class="feat-card ol">
+          <div class="feat-icon">🚜</div>
+          <h4>Small Farm Support</h4>
+          <p>Tools, resources, and training for small-scale farmers to grow organic, chemical-free crops.</p>
+        </div>
+        <div class="feat-card ol">
+          <div class="feat-icon">💧</div>
+          <h4>Water-Smart Farming</h4>
+          <p>Efficient irrigation techniques and water conservation methods for sustainable agriculture.</p>
+        </div>
+        <div class="feat-card ol">
+          <div class="feat-icon">🐓</div>
+          <h4>Poultry & Livestock</h4>
+          <p>Guidance for small-scale halal poultry and livestock farming for family sustenance.</p>
+        </div>
+        <div class="feat-card ol">
+          <div class="feat-icon">♻️</div>
+          <h4>Composting & Natural Fertilizer</h4>
+          <p>Learn to create natural compost and fertilizers — reducing waste and improving soil health.</p>
+        </div>
+        <div class="feat-card ol">
+          <div class="feat-icon">📦</div>
+          <h4>Farm-to-Table Market</h4>
+          <p>Connect directly with buyers — sell your organic produce through the Aponjon marketplace.</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-box">
+      <h3>🌾 Why Aponjon Agro?</h3>
+      <p>Bangladesh has a rich agricultural heritage. Aponjon wants to empower families to reclaim that heritage — growing their own food, reducing dependence on chemicals, living healthier lives, and building sustainable income from the land. This is self-reliance rooted in Islamic principles of stewardship of the earth (khalifah).</p>
+      <div class="tag-row">
+        <span class="tag ol">Organic Only</span>
+        <span class="tag ol">Family Income</span>
+        <span class="tag ol">Eco Friendly</span>
+        <span class="tag ol">Self-Reliance</span>
+        <span class="tag ol">Islamic Values</span>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border:none">&copy; 2025 Aponjon | <a onclick="showPage('home')" style="color:#6b8c42;cursor:pointer">Back to Home</a></div>
+  </footer>
+</div>
+
+<!-- ===================== CONTACT PAGE ===================== -->
+<div class="page" id="page-contact">
+  <div class="sub-hero teal-bg">
+    <a class="back-btn" onclick="showPage('home')">&#8592; Back to Home</a>
+    <h1>Contact Us | যোগাযোগ</h1>
+    <div class="bangla-title">আমাদের সাথে যোগাযোগ করুন</div>
+    <p>We'd love to hear from you. Reach out for any queries, partnerships, or feedback.</p>
+  </div>
+  <div class="sub-content" style="max-width:700px">
+    <div class="info-box" style="margin-bottom:24px">
+      <h3>📬 Get In Touch</h3>
+      <p style="margin-bottom:16px">Whether you have a question about our products, courses, or want to partner with Aponjon — we're here to help. আমরা আপনার কথা শুনতে চাই।</p>
+      <div style="display:grid;gap:14px;margin-top:16px">
+        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--teal-light);border-radius:10px">
+          <span style="font-size:1.6rem">📧</span>
+          <div><div style="font-weight:600;font-size:0.9rem">Email</div><div style="color:var(--text-light);font-family:'Hind Siliguri',sans-serif">info@aponjon.com</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--teal-light);border-radius:10px">
+          <span style="font-size:1.6rem">📞</span>
+          <div><div style="font-weight:600;font-size:0.9rem">Phone | ফোন</div><div style="color:var(--text-light);font-family:'Hind Siliguri',sans-serif">+880 1700-000000</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--teal-light);border-radius:10px">
+          <span style="font-size:1.6rem">📍</span>
+          <div><div style="font-weight:600;font-size:0.9rem">Address | ঠিকানা</div><div style="color:var(--text-light);font-family:'Hind Siliguri',sans-serif">Dhaka, Bangladesh</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--teal-light);border-radius:10px">
+          <span style="font-size:1.6rem">🌐</span>
+          <div><div style="font-weight:600;font-size:0.9rem">Website</div><div style="color:var(--text-light);font-family:'Hind Siliguri',sans-serif">www.aponjon.com</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="info-box">
+      <h3>💬 Send A Message | বার্তা পাঠান</h3>
+      <div style="display:grid;gap:14px;margin-top:14px">
+        <input type="text" placeholder="Your Name | আপনার নাম" style="padding:12px 16px;border:1.5px solid #ddd;border-radius:10px;font-family:'Hind Siliguri',sans-serif;font-size:0.95rem;outline:none;transition:border 0.2s" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='#ddd'"/>
+        <input type="email" placeholder="Email Address | ইমেইল" style="padding:12px 16px;border:1.5px solid #ddd;border-radius:10px;font-family:'Hind Siliguri',sans-serif;font-size:0.95rem;outline:none;transition:border 0.2s" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='#ddd'"/>
+        <textarea rows="4" placeholder="Your Message | আপনার বার্তা" style="padding:12px 16px;border:1.5px solid #ddd;border-radius:10px;font-family:'Hind Siliguri',sans-serif;font-size:0.95rem;outline:none;resize:vertical;transition:border 0.2s" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='#ddd'"></textarea>
+        <button onclick="alert('Message sent! We will get back to you soon. জাযাকাল্লাহু খাইরান!')" style="background:var(--teal);color:#fff;padding:14px;border:none;border-radius:10px;font-family:'Hind Siliguri',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;transition:background 0.2s" onmouseover="this.style.background='var(--teal-dark)'" onmouseout="this.style.background='var(--teal)'">Send Message | বার্তা পাঠান ✉️</button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border:none">&copy; 2025 Aponjon | <a onclick="showPage('home')" style="color:var(--teal);cursor:pointer">Back to Home</a></div>
+  </footer>
+</div>
+
+<script>
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-link'));
+    const navEl = document.getElementById('nav-' + pageId);
+    if (navEl) navEl.classList.add('active-link');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // close mobile menu
+    document.getElementById('nav-links').classList.remove('open');
+  }
+
+  function toggleMenu() {
+    document.getElementById('nav-links').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
