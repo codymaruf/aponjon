@@ -3,328 +3,458 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>APONJON | আপনজনের সুরক্ষায়</title>
+<title>Aponjon | আপনজনের সুরক্ষায়</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-/* ══════════════════════════════════════════
-   DESIGN TOKENS — from uploaded HTML
-══════════════════════════════════════════ */
+/* =====================================================
+   DESIGN TOKENS — from aponjon0_1
+===================================================== */
 :root {
-  --teal: #0D9488;
-  --teal-dark: #0A7A6E;
-  --teal-light: #E6F7F5;
-  --orange: #E8820C;
-  --orange-dark: #C46A08;
-  --orange-light: #FFF4E8;
+  --teal: #2a9d8f;
+  --teal-dark: #1e7268;
+  --teal-light: #e8f7f5;
+  --orange: #e07b30;
+  --orange-dark: #c4621a;
+  --orange-light: #fdf0e6;
+  --green: #5a9e3a;
+  --green-dark: #3e7228;
+  --green-light: #edf7e8;
+  --purple: #7b5ea7;
+  --purple-dark: #5e4580;
+  --purple-light: #f2eef9;
+  --olive: #6b8c42;
   --cream: #faf8f3;
-  --cream2: #f4f1ea;
   --dark: #1a1a2e;
   --text: #2d2d2d;
   --text-light: #666;
   --white: #fff;
-  --shadow: 0 4px 20px rgba(0,0,0,0.08);
-  --shadow-hover: 0 12px 40px rgba(0,0,0,0.14);
-  --radius: 16px;
-  --tr: all 0.3s cubic-bezier(.4,0,.2,1);
+  --shadow: 0 8px 32px rgba(0,0,0,0.10);
+  --shadow-hover: 0 16px 48px rgba(0,0,0,0.18);
+  --radius: 18px;
+  --transition: all 0.3s cubic-bezier(.4,0,.2,1);
 }
 *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
 body { font-family:'Poppins','Hind Siliguri',sans-serif; background:var(--cream); color:var(--text); overflow-x:hidden; }
-a { text-decoration:none; color:inherit; }
 
-/* ══════════════════════════════════════════
-   NAVBAR — exact from uploaded HTML
-══════════════════════════════════════════ */
+/* =====================================================
+   PAGE SYSTEM — from aponjon0_1
+===================================================== */
+.page { display:none; min-height:100vh; }
+.page.active { display:block; }
+
+/* =====================================================
+   NAVBAR — from aponjon0_1
+===================================================== */
 nav {
-  background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
-  padding: 0 5%;
-  display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.15);
-  min-height: 68px;
+  background:linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
+  padding:0 5%;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:100;
+  box-shadow:0 2px 20px rgba(0,0,0,0.15);
+  min-height:68px;
 }
 .nav-logo {
   font-family:'Playfair Display',serif;
   font-size:2rem; font-weight:800;
-  color:#fff; letter-spacing:2px; cursor:pointer;
-  text-shadow:0 2px 8px rgba(0,0,0,0.2);
+  color:var(--white); letter-spacing:2px;
+  cursor:pointer; text-shadow:0 2px 8px rgba(0,0,0,0.2);
   display:flex; align-items:center; gap:8px;
 }
-.nav-logo span { color: var(--orange); }
+.nav-logo span { color:var(--orange); }
 .nav-links { display:flex; gap:4px; align-items:center; flex-wrap:wrap; }
 .nav-links a {
   color:rgba(255,255,255,0.88); text-decoration:none;
   padding:8px 14px; border-radius:8px;
   font-size:0.88rem; font-weight:500;
-  transition:var(--tr); font-family:'Hind Siliguri',sans-serif;
-  white-space:nowrap;
+  transition:var(--transition); font-family:'Hind Siliguri',sans-serif;
+  white-space:nowrap; cursor:pointer;
 }
-.nav-links a:hover { background:rgba(255,255,255,0.18); color:#fff; }
-.nav-links .nav-reg {
-  background:var(--orange); color:#fff !important;
-  border-radius:50px !important; font-weight:600 !important;
-}
-.nav-links .nav-reg:hover { background:var(--orange-dark) !important; }
+.nav-links a:hover, .nav-links a.active-link { background:rgba(255,255,255,0.18); color:#fff; }
 .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; }
-.hamburger span { width:25px; height:2px; background:#fff; border-radius:2px; transition:var(--tr); }
-.mob-menu {
-  display:none; position:fixed; top:68px; left:0; right:0;
-  background:rgba(26,26,46,0.98); z-index:99; padding:16px 5%;
-  flex-direction:column; gap:4px; border-bottom:1px solid rgba(255,255,255,0.1);
-}
-.mob-menu.open { display:flex; }
-.mob-menu a {
-  font-family:'Hind Siliguri',sans-serif; color:rgba(255,255,255,0.82);
-  padding:12px 14px; border-radius:8px; font-size:1rem;
-}
-.mob-menu a:hover { background:rgba(232,130,12,0.15); color:var(--orange); }
+.hamburger span { width:25px; height:2px; background:#fff; border-radius:2px; transition:var(--transition); }
 
-/* ══════════════════════════════════════════
-   HERO — copied pixel-perfect from uploaded HTML
-   (only text values updated per instructions)
-══════════════════════════════════════════ */
+/* =====================================================
+   HERO — from aponjon0_1 (text from aponjon0_2)
+===================================================== */
 .hero {
-  background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 60%, #3dbfa8 100%);
-  padding: 70px 5% 60px;
-  text-align: center; position: relative; overflow: hidden;
+  background:linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 60%, #3dbfa8 100%);
+  padding:70px 5% 60px;
+  text-align:center; position:relative; overflow:hidden;
 }
 .hero::before {
-  content: ''; position: absolute; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  content:''; position:absolute; inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 .hero-badge {
-  display: inline-block; background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #fff; font-size: 0.85rem; padding: 6px 18px;
-  border-radius: 50px; margin-bottom: 18px;
+  display:inline-block; background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.3);
+  color:#fff; font-size:0.85rem; padding:6px 18px;
+  border-radius:50px; margin-bottom:18px;
   font-family:'Hind Siliguri',sans-serif; letter-spacing:1px;
 }
 .hero h1 {
   font-family:'Playfair Display',serif;
-  font-size: clamp(2.2rem, 5vw, 3.6rem);
-  color: #fff; font-weight: 800; line-height: 1.15;
-  margin-bottom: 10px; text-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  font-size:clamp(2.2rem,5vw,3.6rem);
+  color:#fff; font-weight:800; line-height:1.15;
+  margin-bottom:10px; text-shadow:0 2px 12px rgba(0,0,0,0.15);
 }
-.hero h1 span { color: var(--orange); }
+.hero h1 span { color:var(--orange); }
 .hero-bangla {
   font-family:'Hind Siliguri',sans-serif;
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  color: rgba(255,255,255,0.85); margin-bottom: 20px; font-weight: 500;
+  font-size:clamp(1.1rem,2.5vw,1.5rem);
+  color:rgba(255,255,255,0.85); margin-bottom:18px; font-weight:500;
 }
 .hero-trust {
-  display: flex; flex-wrap: wrap; gap: 10px;
-  justify-content: center; margin-bottom: 30px;
+  display:flex; flex-wrap:wrap; gap:10px;
+  justify-content:center; margin-bottom:28px;
 }
 .hero-trust-badge {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
-  color: #fff; font-size: 0.84rem; padding: 7px 16px;
-  border-radius: 50px; font-family:'Hind Siliguri',sans-serif;
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25);
+  color:#fff; font-size:0.83rem; padding:7px 16px;
+  border-radius:50px; font-family:'Hind Siliguri',sans-serif;
 }
-.hero-trust-badge .ck { color: #6ee7dc; font-weight: 700; }
-.hero-btns { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.hero-trust-badge .ck { color:#6ee7dc; font-weight:700; }
+.hero-btns { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
 .hero-btn-primary {
-  display: inline-block; background: var(--orange);
-  color: #fff; padding: 14px 32px; border-radius: 50px;
-  font-weight: 600; font-size: 1rem; cursor: pointer;
-  border: none; transition: var(--tr);
-  box-shadow: 0 4px 20px rgba(232,130,12,0.4);
-  font-family:'Hind Siliguri',sans-serif;
+  display:inline-block; background:var(--orange);
+  color:#fff; padding:14px 32px; border-radius:50px;
+  font-weight:600; font-size:1rem; cursor:pointer;
+  border:none; transition:var(--transition);
+  box-shadow:0 4px 20px rgba(224,123,48,0.4);
+  font-family:'Hind Siliguri',sans-serif; text-decoration:none;
 }
-.hero-btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,130,12,0.5); }
+.hero-btn-primary:hover { background:var(--orange-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(224,123,48,0.5); }
 .hero-btn-secondary {
-  display: inline-block; background: transparent;
-  color: rgba(255,255,255,0.88); padding: 13px 30px; border-radius: 50px;
-  font-weight: 500; font-size: 1rem; cursor: pointer;
-  border: 1.5px solid rgba(255,255,255,0.35);
-  transition: var(--tr); font-family:'Hind Siliguri',sans-serif;
+  display:inline-block; background:transparent;
+  color:rgba(255,255,255,0.88); padding:13px 30px; border-radius:50px;
+  font-weight:500; font-size:1rem; cursor:pointer;
+  border:1.5px solid rgba(255,255,255,0.35);
+  transition:var(--transition); font-family:'Hind Siliguri',sans-serif;
+  text-decoration:none;
 }
 .hero-btn-secondary:hover { border-color:#fff; color:#fff; background:rgba(255,255,255,0.1); }
 
-/* ══════════════════════════════════════════
-   SHARED SECTION STYLES — light & airy
-══════════════════════════════════════════ */
-.section { padding: 72px 5%; }
-.section-inner { max-width: 1140px; margin: 0 auto; }
-.section-eyebrow {
-  font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--teal); font-weight: 600; margin-bottom: 8px;
-}
-.section-title {
+/* =====================================================
+   SECTION LABEL — from aponjon0_1
+===================================================== */
+.section-label { text-align:center; padding:50px 5% 10px; }
+.section-label h2 {
   font-family:'Playfair Display',serif;
-  font-size: clamp(1.8rem,3.5vw,2.6rem); font-weight: 800;
-  color: var(--dark); margin-bottom: 6px; line-height: 1.2;
+  font-size:clamp(1.5rem,3vw,2.2rem); color:var(--dark); margin-bottom:6px;
 }
-.section-subtitle {
-  font-family:'Hind Siliguri',sans-serif;
-  font-size: 1rem; color: var(--text-light); margin-bottom: 10px;
-}
-.title-line {
-  width: 48px; height: 4px; border-radius: 2px;
-  background: linear-gradient(90deg, var(--orange), var(--teal));
-  margin-bottom: 40px;
-}
-.section-center { text-align: center; }
-.section-center .title-line { margin-left: auto; margin-right: auto; }
+.section-label p { color:var(--text-light); font-family:'Hind Siliguri',sans-serif; font-size:1rem; }
+.divider { width:60px; height:4px; background:var(--teal); border-radius:2px; margin:12px auto 0; }
 
-/* White card — matches uploaded HTML's .card feel */
-.wcard {
-  background: var(--white); border-radius: var(--radius);
-  padding: 28px 24px; box-shadow: var(--shadow);
-  transition: var(--tr); border: 1.5px solid rgba(0,0,0,0.05);
-  position: relative; overflow: hidden;
+/* =====================================================
+   HOMEPAGE CARDS GRID — from aponjon0_1
+===================================================== */
+.cards-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+  gap:24px; padding:32px 5% 20px;
+  max-width:1200px; margin:0 auto;
 }
-.wcard:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
-.wcard-icon { font-size: 2.2rem; margin-bottom: 12px; }
-.wcard h3 {
+.card {
+  border-radius:var(--radius); padding:28px 24px 24px;
+  cursor:pointer; transition:var(--transition);
+  box-shadow:var(--shadow); position:relative; overflow:hidden;
+  border:2px solid transparent;
+}
+.card::before {
+  content:''; position:absolute; top:-60px; right:-60px;
+  width:160px; height:160px; border-radius:50%;
+  opacity:0.08; transition:var(--transition);
+}
+.card:hover { transform:translateY(-8px); box-shadow:var(--shadow-hover); }
+.card:hover::before { transform:scale(1.3); opacity:0.14; }
+.card.teal { background:var(--teal-light); border-color:var(--teal); }
+.card.teal::before { background:var(--teal); }
+.card.orange { background:var(--orange-light); border-color:var(--orange); }
+.card.orange::before { background:var(--orange); }
+.card.green { background:var(--green-light); border-color:var(--green); }
+.card.green::before { background:var(--green); }
+.card.purple { background:var(--purple-light); border-color:var(--purple); }
+.card.purple::before { background:var(--purple); }
+.card.olive-card { background:#edf4e2; border-color:var(--olive); }
+.card.olive-card::before { background:var(--olive); }
+.card.dark-card { background:#eaf3f8; border-color:#2a7aad; }
+.card.dark-card::before { background:#2a7aad; }
+
+.card-icon { font-size:2.4rem; margin-bottom:12px; }
+.card h3 {
   font-family:'Playfair Display',serif;
-  font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; color: var(--dark);
+  font-size:1.1rem; font-weight:700; margin-bottom:5px;
 }
-.wcard p {
-  font-family:'Hind Siliguri',sans-serif;
-  font-size: 0.88rem; color: var(--text-light); line-height: 1.65; margin-bottom: 14px;
+.card.teal h3 { color:var(--teal-dark); }
+.card.orange h3 { color:var(--orange-dark); }
+.card.green h3 { color:var(--green-dark); }
+.card.purple h3 { color:var(--purple-dark); }
+.card.olive-card h3 { color:#3e6b22; }
+.card.dark-card h3 { color:#1a4f7a; }
+.card-desc { font-family:'Hind Siliguri',sans-serif; font-size:0.87rem; color:var(--text-light); line-height:1.6; margin-bottom:12px; }
+.card-stat {
+  font-family:'Hind Siliguri',sans-serif; font-size:0.82rem; font-weight:600;
+  margin-bottom:16px; padding:7px 12px; border-radius:8px;
+  display:inline-block;
 }
-/* Coloured top accent on cards */
-.wcard.t-accent { border-top: 3px solid var(--teal); }
-.wcard.o-accent { border-top: 3px solid var(--orange); }
-.wcard.g-accent { border-top: 3px solid #22A45D; }
-.wcard.p-accent { border-top: 3px solid #7B5EA7; }
+.card.teal .card-stat { background:rgba(42,157,143,0.12); color:var(--teal-dark); }
+.card.orange .card-stat { background:rgba(224,123,48,0.12); color:var(--orange-dark); }
+.card.green .card-stat { background:rgba(90,158,58,0.12); color:var(--green-dark); }
+.card.purple .card-stat { background:rgba(123,94,167,0.12); color:var(--purple-dark); }
+.card.olive-card .card-stat { background:rgba(107,140,66,0.12); color:#3e6b22; }
+.card.dark-card .card-stat { background:rgba(42,122,173,0.12); color:#1a4f7a; }
+.card-arrow {
+  display:inline-flex; align-items:center; gap:6px;
+  margin-top:4px; font-size:0.88rem; font-weight:600;
+  font-family:'Hind Siliguri',sans-serif; transition:var(--transition);
+  text-decoration:none;
+}
+.card.teal .card-arrow { color:var(--teal-dark); }
+.card.orange .card-arrow { color:var(--orange-dark); }
+.card.green .card-arrow { color:var(--green-dark); }
+.card.purple .card-arrow { color:var(--purple-dark); }
+.card.olive-card .card-arrow { color:#3e6b22; }
+.card.dark-card .card-arrow { color:#1a4f7a; }
+.card:hover .card-arrow { gap:12px; }
 
-/* Small pill tags */
-.pill-row { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
-.pill {
-  padding: 4px 13px; border-radius: 50px;
-  font-size: 0.76rem; font-family:'Hind Siliguri',sans-serif; font-weight:600;
+/* =====================================================
+   FOOTER — from aponjon0_1 (full footer style)
+===================================================== */
+footer {
+  background:var(--dark); color:rgba(255,255,255,0.8);
+  padding:50px 5% 28px;
 }
-.pill-tl { background: var(--teal-light); color: var(--teal-dark); }
-.pill-or { background: var(--orange-light); color: var(--orange-dark); }
-.pill-gr { background: #E8F7E8; color: #1A7A3C; }
-.pill-dk { background: #F0EDF8; color: #5e4580; }
+.footer-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:36px; max-width:1200px; margin:0 auto 36px;
+}
+.footer-brand .nav-logo { font-size:1.6rem; margin-bottom:10px; display:block; cursor:default; }
+.footer-brand p { font-size:0.88rem; line-height:1.7; font-family:'Hind Siliguri',sans-serif; color:rgba(255,255,255,0.65); }
+.footer-col h4 { color:#fff; font-size:1rem; margin-bottom:14px; font-weight:600; }
+.footer-col a {
+  display:block; color:rgba(255,255,255,0.65); text-decoration:none;
+  font-size:0.88rem; margin-bottom:8px; font-family:'Hind Siliguri',sans-serif;
+  transition:var(--transition); cursor:pointer;
+}
+.footer-col a:hover { color:var(--teal); }
+.footer-contact p { font-size:0.88rem; font-family:'Hind Siliguri',sans-serif; color:rgba(255,255,255,0.65); margin-bottom:8px; display:flex; gap:8px; }
+.footer-bottom {
+  border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;
+  text-align:center; font-size:0.82rem; color:rgba(255,255,255,0.45);
+  font-family:'Hind Siliguri',sans-serif; max-width:1200px; margin:0 auto;
+}
 
-/* Section CTA link */
-.sec-link {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-family:'Hind Siliguri',sans-serif; font-size: 0.88rem; font-weight:600;
-  color: var(--teal); transition: var(--tr);
+/* =====================================================
+   SUBPAGE HERO — from aponjon0_1
+===================================================== */
+.sub-hero {
+  padding:60px 5% 50px; text-align:center;
+  position:relative; overflow:hidden;
 }
-.sec-link:hover { gap: 10px; color: var(--teal-dark); }
-.sec-link.orange { color: var(--orange); }
-.sec-link.orange:hover { color: var(--orange-dark); }
+.sub-hero.teal-bg { background:linear-gradient(135deg, var(--teal-dark), var(--teal)); }
+.sub-hero.orange-bg { background:linear-gradient(135deg, var(--orange-dark), var(--orange)); }
+.sub-hero.green-bg { background:linear-gradient(135deg, var(--green-dark), var(--green)); }
+.sub-hero.purple-bg { background:linear-gradient(135deg, var(--purple-dark), var(--purple)); }
+.sub-hero.olive-bg { background:linear-gradient(135deg, #3e6b22, var(--olive)); }
+.sub-hero.dark-bg { background:linear-gradient(135deg, #1a2535, #0F1923); }
+.sub-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.8rem); color:#fff; margin-bottom:8px; }
+.sub-hero .bangla-title { font-family:'Hind Siliguri',sans-serif; font-size:clamp(1.1rem,2.5vw,1.5rem); color:rgba(255,255,255,0.85); margin-bottom:12px; }
+.sub-hero p { color:rgba(255,255,255,0.78); font-family:'Hind Siliguri',sans-serif; font-size:1rem; max-width:560px; margin:0 auto; }
+.back-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.35);
+  color:#fff; padding:10px 22px; border-radius:50px;
+  cursor:pointer; font-family:'Hind Siliguri',sans-serif;
+  font-size:0.9rem; transition:var(--transition); margin-bottom:28px;
+  text-decoration:none;
+}
+.back-btn:hover { background:rgba(255,255,255,0.3); }
 
-/* Orange CTA button */
-.btn-orange {
-  display: inline-block; background: var(--orange); color: #fff;
-  padding: 13px 30px; border-radius: 50px;
-  font-family:'Hind Siliguri',sans-serif; font-weight:600; font-size:0.95rem;
-  border: none; cursor: pointer; transition: var(--tr);
-  box-shadow: 0 4px 18px rgba(232,130,12,0.35);
+/* =====================================================
+   SUBPAGE CONTENT — from aponjon0_1
+===================================================== */
+.sub-content { padding:50px 5%; max-width:1100px; margin:0 auto; }
+.sub-section { margin-bottom:48px; }
+.sub-section h2 {
+  font-family:'Playfair Display',serif; font-size:1.6rem;
+  margin-bottom:8px; display:flex; align-items:center; gap:10px;
 }
-.btn-orange:hover { background: var(--orange-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(232,130,12,0.45); }
-.btn-teal {
-  display: inline-block; background: var(--teal); color: #fff;
-  padding: 12px 28px; border-radius: 50px;
-  font-family:'Hind Siliguri',sans-serif; font-weight:600; font-size:0.93rem;
-  border: none; cursor: pointer; transition: var(--tr);
-  box-shadow: 0 4px 16px rgba(13,148,136,0.3);
+.sub-section .bangla-sub { font-family:'Hind Siliguri',sans-serif; font-size:1rem; color:var(--text-light); margin-bottom:20px; }
+.features-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
 }
-.btn-teal:hover { background: var(--teal-dark); transform:translateY(-2px); }
-.btn-outline {
-  display: inline-block; background: transparent; color: var(--teal);
-  padding: 11px 26px; border-radius: 50px;
-  font-family:'Hind Siliguri',sans-serif; font-weight:600; font-size:0.9rem;
-  border: 2px solid var(--teal); cursor: pointer; transition: var(--tr);
+.feat-card {
+  background:#fff; border-radius:14px; padding:24px 20px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.07); transition:var(--transition);
+  border-top:4px solid transparent;
 }
-.btn-outline:hover { background: var(--teal); color: #fff; }
+.feat-card:hover { transform:translateY(-4px); box-shadow:0 8px 28px rgba(0,0,0,0.12); }
+.feat-card.t { border-top-color:var(--teal); }
+.feat-card.o { border-top-color:var(--orange); }
+.feat-card.g { border-top-color:var(--green); }
+.feat-card.p { border-top-color:var(--purple); }
+.feat-card.ol { border-top-color:var(--olive); }
+.feat-icon { font-size:2rem; margin-bottom:12px; }
+.feat-card h4 { font-size:1rem; font-weight:600; margin-bottom:6px; }
+.feat-card p { font-size:0.88rem; color:var(--text-light); font-family:'Hind Siliguri',sans-serif; line-height:1.6; }
 
-/* ══════════════════════════════════════════
-   SECTION 1 — ACADEMY
-══════════════════════════════════════════ */
-#academy { background: var(--white); }
-
-.subject-pills { display:flex; flex-wrap:wrap; gap:9px; justify-content:center; margin: 22px 0 36px; }
-.subject-pill {
-  background: var(--teal-light); color: var(--teal-dark);
-  padding: 8px 18px; border-radius: 50px;
-  font-family:'Hind Siliguri',sans-serif; font-size:0.9rem; font-weight:600;
-  transition: var(--tr); cursor:default;
+.info-box {
+  background:#fff; border-radius:14px; padding:28px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.07); margin-bottom:24px;
 }
-.subject-pill:hover { background: var(--teal); color:#fff; transform:translateY(-2px); }
+.info-box h3 { font-size:1.15rem; font-weight:600; margin-bottom:10px; font-family:'Hind Siliguri',sans-serif; }
+.info-box p { font-size:0.92rem; color:var(--text-light); font-family:'Hind Siliguri',sans-serif; line-height:1.8; }
+.tag-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+.tag { padding:6px 16px; border-radius:50px; font-size:0.82rem; font-family:'Hind Siliguri',sans-serif; font-weight:500; }
+.tag.t { background:var(--teal-light); color:var(--teal-dark); }
+.tag.o { background:var(--orange-light); color:var(--orange-dark); }
+.tag.g { background:var(--green-light); color:var(--green-dark); }
+.tag.p { background:var(--purple-light); color:var(--purple-dark); }
+.tag.ol { background:#edf4e2; color:#3e6b22; }
+
+/* =====================================================
+   ACADEMY PAGE EXTRAS — from aponjon0_2 content style
+   adapted to aponjon0_1 visual system
+===================================================== */
+.acad-section { padding:40px 5%; max-width:1100px; margin:0 auto; }
 
 /* 4 stat cards */
-.stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:32px; }
+.stat-row {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+  margin-bottom:32px;
+}
 @media(max-width:700px){ .stat-row { grid-template-columns:1fr 1fr; } }
 .stat-card {
-  background: var(--white); border-radius: var(--radius);
-  padding: 22px 18px; text-align:center;
-  box-shadow: var(--shadow); border: 1.5px solid rgba(0,0,0,0.05);
-  transition: var(--tr);
+  background:#fff; border-radius:14px; padding:20px 16px;
+  text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.07);
+  border-top:3px solid var(--teal); transition:var(--transition);
 }
-.stat-card:hover { transform:translateY(-4px); box-shadow: var(--shadow-hover); }
-.stat-icon { font-size: 1.8rem; margin-bottom: 8px; }
-.stat-val {
-  font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:800;
-  color: var(--dark); margin-bottom: 4px;
+.stat-card:hover { transform:translateY(-4px); box-shadow:0 8px 28px rgba(0,0,0,0.12); }
+.stat-icon { font-size:1.8rem; margin-bottom:8px; }
+.stat-num {
+  font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:800;
+  color:var(--dark); margin-bottom:4px;
 }
 .stat-lbl { font-family:'Hind Siliguri',sans-serif; font-size:0.8rem; color:var(--text-light); }
 
-/* Refund box */
-.refund-box {
-  background: var(--white); border-radius: var(--radius); padding: 26px 28px;
-  box-shadow: var(--shadow); border-left: 4px solid var(--orange);
-  margin-bottom: 28px;
+/* Subject pills */
+.subject-pills { display:flex; flex-wrap:wrap; gap:9px; margin:20px 0 30px; }
+.sub-pill {
+  background:var(--teal-light); border:1px solid rgba(42,157,143,0.3);
+  color:var(--teal-dark); padding:7px 18px; border-radius:50px;
+  font-family:'Hind Siliguri',sans-serif; font-size:0.88rem; font-weight:600;
+  transition:var(--transition); cursor:default;
 }
-.refund-title {
-  font-family:'Hind Siliguri',sans-serif; font-size:0.78rem; text-transform:uppercase;
-  letter-spacing:2px; color:var(--orange); font-weight:700; margin-bottom:10px;
+.sub-pill:hover { background:var(--teal); color:#fff; transform:translateY(-2px); }
+
+/* 2-col layout */
+.acad-cols { display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-bottom:22px; }
+@media(max-width:760px){ .acad-cols { grid-template-columns:1fr; } }
+
+/* Course card (dark) */
+.course-card-dark {
+  background:var(--dark); border-radius:var(--radius); padding:32px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.2); position:relative; overflow:hidden;
 }
-.refund-head {
-  font-family:'Hind Siliguri',sans-serif; font-size:1.05rem; font-weight:700;
-  color: var(--dark); margin-bottom:16px; line-height:1.5;
+.course-card-dark::before {
+  content:''; position:absolute; top:-40px; right:-40px;
+  width:160px; height:160px; border-radius:50%;
+  background:radial-gradient(circle,rgba(224,123,48,0.2) 0%,transparent 70%);
 }
-.refund-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
-.refund-list li {
-  display:flex; align-items:flex-start; gap:10px;
-  font-family:'Hind Siliguri',sans-serif; font-size:0.92rem; color:var(--text); line-height:1.55;
+.cc-eyebrow {
+  color:var(--orange); font-family:'Hind Siliguri',sans-serif;
+  font-size:0.76rem; text-transform:uppercase; letter-spacing:2px;
+  font-weight:700; margin-bottom:20px;
 }
-.refund-list li::before {
+.cc-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 14px; background:rgba(255,255,255,0.06); border-radius:9px;
+  border-left:3px solid var(--teal); margin-bottom:10px;
+}
+.cc-lbl { color:rgba(255,255,255,0.5); font-size:0.84rem; font-family:'Hind Siliguri',sans-serif; }
+.cc-val { color:#fff; font-weight:600; font-family:'Hind Siliguri',sans-serif; font-size:0.92rem; }
+.cc-val .hot { color:var(--orange); }
+.price-row-dark {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 14px; background:rgba(224,123,48,0.14);
+  border-radius:9px; border:1px solid rgba(224,123,48,0.3); margin-bottom:22px;
+}
+.pr-lbl { color:rgba(255,255,255,0.65); font-family:'Hind Siliguri',sans-serif; font-size:0.85rem; }
+.pr-val { color:var(--orange); font-size:1.6rem; font-weight:700; font-family:'Playfair Display',serif; }
+
+/* Refund box (dark teal) */
+.refund-box-dark {
+  background:linear-gradient(135deg,#0e3d36 0%,#115048 100%);
+  border:1px solid rgba(42,157,143,0.4);
+  border-radius:var(--radius); padding:28px;
+  position:relative; overflow:hidden;
+}
+.refund-box-dark::before { content:'💰'; position:absolute; top:-8px; right:18px; font-size:4.5rem; opacity:0.09; }
+.rb-eyebrow { color:var(--teal); font-family:'Hind Siliguri',sans-serif; font-size:0.75rem; text-transform:uppercase; letter-spacing:2px; font-weight:700; margin-bottom:10px; }
+.rb-head { color:#fff; font-family:'Hind Siliguri',sans-serif; font-size:1.05rem; font-weight:700; margin-bottom:18px; line-height:1.55; }
+.rb-list { list-style:none; display:flex; flex-direction:column; gap:12px; }
+.rb-list li {
+  display:flex; align-items:flex-start; gap:11px;
+  color:rgba(255,255,255,0.82); font-family:'Hind Siliguri',sans-serif;
+  font-size:0.9rem; line-height:1.6;
+}
+.rb-list li::before {
   content:'✓'; min-width:22px; height:22px;
-  background: var(--orange); color:#fff; border-radius:50%;
+  background:var(--teal); color:#fff; border-radius:50%;
   display:flex; align-items:center; justify-content:center;
-  font-size:0.7rem; font-weight:700; flex-shrink:0; margin-top:1px;
+  font-size:0.68rem; font-weight:700; flex-shrink:0; margin-top:1px;
 }
 
-/* Academy 2-col layout */
-.acad-cols { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:28px; }
-@media(max-width:760px){ .acad-cols { grid-template-columns:1fr; } }
+/* How it works */
+.how-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:20px 0; }
+@media(max-width:700px){ .how-grid { grid-template-columns:1fr 1fr; } }
+.how-step {
+  background:#fff; border-radius:12px; padding:18px 14px; text-align:center;
+  box-shadow:0 3px 12px rgba(0,0,0,0.06); border-top:3px solid var(--teal);
+  transition:var(--transition);
+}
+.how-step:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,0,0,0.10); }
+.how-num {
+  width:30px; height:30px; border-radius:50%; background:var(--teal);
+  color:#fff; font-weight:700; font-size:0.85rem;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 10px;
+}
+.how-step h5 { font-family:'Hind Siliguri',sans-serif; font-size:0.88rem; font-weight:700; color:var(--dark); margin-bottom:5px; }
+.how-step p { font-family:'Hind Siliguri',sans-serif; font-size:0.78rem; color:var(--text-light); line-height:1.55; }
+.how-result {
+  background:var(--teal-light); border-radius:10px; padding:14px 18px;
+  font-family:'Hind Siliguri',sans-serif; font-size:0.9rem; font-weight:600;
+  color:var(--teal-dark); text-align:center; margin-top:4px;
+  border-left:3px solid var(--teal);
+}
 
 /* Teacher card */
 .teacher-card {
-  background: var(--white); border-radius: var(--radius); padding:26px 24px;
-  box-shadow: var(--shadow); border: 1.5px solid rgba(0,0,0,0.05); height:100%;
+  background:#fff; border-radius:var(--radius); padding:28px 24px;
+  box-shadow:var(--shadow); border:1.5px solid rgba(0,0,0,0.06); height:100%;
 }
-.teacher-top { display:flex; gap:16px; align-items:flex-start; margin-bottom:16px; }
-.teacher-avatar {
+.ts-label { font-family:'Hind Siliguri',sans-serif; font-size:0.75rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-light); font-weight:600; margin-bottom:18px; }
+.t-profile { display:flex; gap:16px; align-items:flex-start; margin-bottom:16px; }
+.t-avatar {
   width:62px; height:62px; border-radius:50%; flex-shrink:0;
-  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  background:linear-gradient(135deg,var(--teal),var(--teal-dark));
   display:flex; align-items:center; justify-content:center;
-  font-size:1.6rem; box-shadow:0 4px 14px rgba(13,148,136,0.3);
+  font-size:1.6rem; box-shadow:0 4px 14px rgba(42,157,143,0.3);
 }
-.teacher-name {
-  font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:800;
-  color:var(--dark); margin-bottom:3px;
+.t-name { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--dark); margin-bottom:3px; }
+.t-uni { color:var(--teal); font-size:0.84rem; font-weight:600; font-family:'Hind Siliguri',sans-serif; margin-bottom:2px; }
+.t-dept { color:var(--text-light); font-size:0.78rem; font-family:'Hind Siliguri',sans-serif; }
+.t-row {
+  background:var(--cream); border-radius:8px; padding:9px 12px;
+  font-family:'Hind Siliguri',sans-serif; font-size:0.84rem; color:var(--text);
+  margin-bottom:8px;
 }
-.teacher-uni { color:var(--teal); font-size:0.85rem; font-weight:600; font-family:'Hind Siliguri',sans-serif; margin-bottom:2px; }
-.teacher-dept { color:var(--text-light); font-size:0.8rem; font-family:'Hind Siliguri',sans-serif; }
-.teacher-row {
-  font-family:'Hind Siliguri',sans-serif; font-size:0.85rem; color:var(--text);
-  padding:9px 12px; background:var(--cream); border-radius:8px; margin-bottom:8px;
-}
-.teacher-row strong { color:var(--teal-dark); font-weight:600; }
+.t-row strong { color:var(--teal-dark); font-weight:600; }
 .skill-tags { display:flex; flex-wrap:wrap; gap:7px; margin:12px 0; }
-.skill-tag {
-  background:var(--teal-light); color:var(--teal-dark); padding:4px 13px;
-  border-radius:50px; font-size:0.77rem; font-family:'Hind Siliguri',sans-serif; font-weight:500;
-}
+.skill-tag { background:var(--teal-light); color:var(--teal-dark); padding:4px 13px; border-radius:50px; font-size:0.76rem; font-family:'Hind Siliguri',sans-serif; font-weight:500; }
 .supervisor-bar {
   margin-top:14px; padding:11px 15px; background:var(--orange-light);
   border-radius:9px; border-left:3px solid var(--orange);
@@ -334,626 +464,637 @@ nav {
 
 /* Bonus card */
 .bonus-card {
-  background: var(--teal); border-radius: var(--radius); padding:26px 24px;
-  box-shadow: 0 8px 28px rgba(13,148,136,0.3); color:#fff; height:100%;
+  background:linear-gradient(135deg,#2D1A00,#3D2400);
+  border-radius:var(--radius); padding:28px 24px;
+  border:1px solid rgba(224,123,48,0.35);
+  position:relative; overflow:hidden; height:100%;
   display:flex; flex-direction:column; justify-content:center;
 }
-.bonus-label { font-family:'Hind Siliguri',sans-serif; font-size:0.78rem; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,0.7); font-weight:700; margin-bottom:10px; }
-.bonus-icon { font-size:2.4rem; margin-bottom:10px; }
-.bonus-text { font-family:'Hind Siliguri',sans-serif; font-size:1.05rem; font-weight:700; line-height:1.6; margin-bottom:18px; }
-.bonus-items { display:flex; flex-direction:column; gap:10px; }
-.bonus-item {
-  display:flex; align-items:center; gap:10px;
-  background:rgba(255,255,255,0.15); padding:10px 14px; border-radius:10px;
-  font-family:'Hind Siliguri',sans-serif; font-size:0.9rem;
-}
+.bonus-card::before { content:'🎁'; position:absolute; top:-5px; left:16px; font-size:4.5rem; opacity:0.08; }
+.bonus-card::after { content:'🎁'; position:absolute; bottom:-5px; right:16px; font-size:4.5rem; opacity:0.08; }
+.bb-eyebrow { color:var(--orange); font-family:'Hind Siliguri',sans-serif; font-size:0.75rem; text-transform:uppercase; letter-spacing:2px; font-weight:700; margin-bottom:10px; }
+.bb-icon { font-size:2.2rem; margin-bottom:10px; }
+.bb-text { color:#fff; font-family:'Hind Siliguri',sans-serif; font-size:1rem; font-weight:600; line-height:1.65; margin-bottom:18px; }
+.bb-items { display:flex; flex-direction:column; gap:10px; }
+.bb-item { display:flex; align-items:center; gap:9px; background:rgba(255,255,255,0.09); padding:9px 16px; border-radius:50px; color:rgba(255,255,255,0.85); font-family:'Hind Siliguri',sans-serif; font-size:0.86rem; }
 
-/* Fashion one-liner card */
-.fashion-bar {
-  background:var(--cream2); border-radius: var(--radius); padding:20px 28px;
-  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
-  border: 1.5px solid rgba(0,0,0,0.06); margin-top:24px;
+/* Academy CTA banner */
+.acad-cta-bar {
+  text-align:center; padding:44px 32px; margin-top:28px;
+  background:linear-gradient(135deg,var(--dark),#1a2535);
+  border-radius:var(--radius);
 }
-.fashion-bar-icon { font-size:2rem; }
-.fashion-bar-text h4 { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:3px; }
-.fashion-bar-text p { font-family:'Hind Siliguri',sans-serif; font-size:0.87rem; color:var(--text-light); }
-.fashion-pills { display:flex; gap:8px; flex-wrap:wrap; margin-left:auto; }
-.fashion-pill { background:var(--white); border:1.5px solid rgba(0,0,0,0.1); color:var(--text); padding:5px 14px; border-radius:50px; font-size:0.8rem; font-family:'Hind Siliguri',sans-serif; font-weight:500; }
-
-/* Academy CTA */
-.acad-cta {
-  text-align:center; padding:44px 30px;
-  background: linear-gradient(135deg, var(--dark) 0%, #1a2535 100%);
-  border-radius: var(--radius); margin-top:32px;
+.acad-cta-bar h3 { font-family:'Hind Siliguri',sans-serif; color:#fff; font-size:1.4rem; font-weight:700; margin-bottom:7px; }
+.acad-cta-bar p { color:rgba(255,255,255,0.5); font-family:'Hind Siliguri',sans-serif; margin-bottom:22px; font-size:0.9rem; }
+.btn-orange-lg {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--orange); color:#fff; padding:15px 36px;
+  border-radius:50px; font-family:'Hind Siliguri',sans-serif;
+  font-weight:700; font-size:1rem; border:none; cursor:pointer;
+  box-shadow:0 6px 24px rgba(224,123,48,0.4); transition:var(--transition);
+  text-decoration:none;
 }
-.acad-cta h3 { font-family:'Hind Siliguri',sans-serif; color:#fff; font-size:1.45rem; font-weight:700; margin-bottom:7px; }
-.acad-cta p { color:rgba(255,255,255,0.55); font-family:'Hind Siliguri',sans-serif; margin-bottom:22px; font-size:0.9rem; }
+.btn-orange-lg:hover { background:var(--orange-dark); transform:translateY(-3px); box-shadow:0 10px 30px rgba(224,123,48,0.5); }
 
-/* ══════════════════════════════════════════
-   SECTION 2 — PRODUCTS
-══════════════════════════════════════════ */
-#products { background: var(--cream); }
-.prod-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px; }
-
-/* ══════════════════════════════════════════
-   SECTION 3 — EDUCATION
-══════════════════════════════════════════ */
-#education { background: var(--white); }
-.edu-card-wide {
-  display:flex; align-items:center; gap:28px; flex-wrap:wrap;
-  background:var(--white); border-radius:var(--radius); padding:32px 28px;
-  box-shadow:var(--shadow); border:1.5px solid rgba(0,0,0,0.05);
-  border-top:3px solid var(--teal);
+/* Fashion row */
+.fashion-row {
+  background:#f5f0e8; border-radius:var(--radius); padding:28px 28px;
+  margin-top:28px;
 }
-.edu-left { flex:0 0 auto; }
-.edu-icon-big { font-size:3.5rem; }
-.edu-right { flex:1; min-width:200px; }
-.edu-right h3 { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:var(--dark); margin-bottom:5px; }
-.edu-right p { font-family:'Hind Siliguri',sans-serif; font-size:0.9rem; color:var(--text-light); line-height:1.7; margin-bottom:16px; }
-
-/* ══════════════════════════════════════════
-   SECTION 4 — LEISURE
-══════════════════════════════════════════ */
-#leisure { background: var(--cream); }
-.leisure-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
-@media(max-width:640px){ .leisure-grid { grid-template-columns:1fr; } }
-.lcard { border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); transition:var(--tr); }
-.lcard:hover { transform:translateY(-5px); box-shadow:var(--shadow-hover); }
-.lcard-head { padding:26px 24px; position:relative; overflow:hidden; }
-.lcard-head::before {
-  content:''; position:absolute; inset:0;
-  background-image:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,0.03) 20px,rgba(255,255,255,0.03) 22px);
+.fashion-row h4 { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; margin-bottom:5px; color:var(--dark); }
+.fashion-row p { font-family:'Hind Siliguri',sans-serif; font-size:0.88rem; color:var(--text-light); margin-bottom:18px; }
+.fashion-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+@media(max-width:580px){ .fashion-grid { grid-template-columns:1fr; } }
+.f-card {
+  background:#fff; border-radius:12px; padding:20px 16px;
+  text-align:center; box-shadow:0 3px 12px rgba(0,0,0,0.06);
+  transition:var(--transition);
 }
-.lcard-ent { background:linear-gradient(135deg,#2D1450 0%,#4A2280 100%); }
-.lcard-tour { background:linear-gradient(135deg,var(--teal-dark) 0%,var(--teal) 100%); }
-.lcard-head-icon { font-size:2.2rem; margin-bottom:10px; position:relative; }
-.lcard-head h3 { font-family:'Playfair Display',serif; color:#fff; font-size:1.25rem; font-weight:700; margin-bottom:3px; position:relative; }
-.lcard-head-sub { font-family:'Hind Siliguri',sans-serif; color:rgba(255,255,255,0.65); font-size:0.84rem; position:relative; }
-.lcard-body { background:var(--white); padding:22px 24px; }
-.lcard-body p { font-family:'Hind Siliguri',sans-serif; font-size:0.88rem; color:var(--text-light); line-height:1.65; margin-bottom:14px; }
+.f-card:hover { transform:translateY(-4px); box-shadow:0 8px 22px rgba(0,0,0,0.10); }
+.f-icon { font-size:2.2rem; margin-bottom:10px; }
+.f-card h5 { font-family:'Hind Siliguri',sans-serif; font-size:0.92rem; font-weight:700; color:var(--dark); margin-bottom:5px; }
+.f-card p { font-size:0.8rem; color:var(--text-light); font-family:'Hind Siliguri',sans-serif; line-height:1.55; }
 
-/* ══════════════════════════════════════════
-   SECTION 5 — AGRO (full-width light teal banner)
-══════════════════════════════════════════ */
-#agro { background:var(--white); }
-.agro-banner {
-  background: linear-gradient(135deg, #E6F7F5 0%, #D0F0EC 100%);
-  border: 2px solid rgba(13,148,136,0.2);
-  border-radius: var(--radius); padding:40px 36px;
-  display:flex; align-items:center; gap:28px; flex-wrap:wrap;
-}
-.agro-left { flex:1; min-width:220px; }
-.agro-left h3 {
-  font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:800;
-  color:var(--teal-dark); margin-bottom:8px;
-}
-.agro-left p { font-family:'Hind Siliguri',sans-serif; font-size:0.95rem; color:#3a7a74; line-height:1.7; margin-bottom:18px; }
-.agro-right { text-align:center; flex:0 0 auto; }
-.agro-icons-big { font-size:3.5rem; margin-bottom:6px; }
-
-/* ══════════════════════════════════════════
-   CONTACT SECTION
-══════════════════════════════════════════ */
-#contact { background: var(--cream); }
-.contact-grid { display:grid; grid-template-columns:1fr 1.3fr; gap:40px; align-items:start; }
-@media(max-width:720px){ .contact-grid { grid-template-columns:1fr; } }
-.c-info { display:flex; flex-direction:column; gap:14px; }
+/* =====================================================
+   CONTACT PAGE — from aponjon0_2 content, aponjon0_1 style
+===================================================== */
+.contact-wrap { display:grid; grid-template-columns:1fr 1.3fr; gap:36px; align-items:start; }
+@media(max-width:720px){ .contact-wrap { grid-template-columns:1fr; } }
+.c-info { display:flex; flex-direction:column; gap:12px; }
 .c-card {
-  background:var(--white); border-radius:12px; padding:18px 20px;
-  box-shadow:var(--shadow); display:flex; align-items:center; gap:15px;
-  border:1.5px solid rgba(0,0,0,0.05); transition:var(--tr);
+  background:#fff; border-radius:12px; padding:16px 18px;
+  box-shadow:0 3px 12px rgba(0,0,0,0.07); display:flex; align-items:center; gap:14px;
+  border:1.5px solid rgba(0,0,0,0.05); transition:var(--transition);
 }
-.c-card:hover { border-color:var(--teal); box-shadow:var(--shadow-hover); }
-.c-ico {
-  width:44px; height:44px; border-radius:10px; background:var(--teal-light);
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.25rem; flex-shrink:0;
-}
-.c-card h5 { font-size:0.76rem; color:var(--text-light); text-transform:uppercase; letter-spacing:1px; margin-bottom:3px; font-family:'Poppins',sans-serif; }
-.c-card p { font-family:'Hind Siliguri',sans-serif; font-size:0.92rem; color:var(--text); font-weight:500; }
-.c-form {
-  background:var(--white); border-radius:var(--radius); padding:34px;
-  box-shadow:var(--shadow); border:1.5px solid rgba(0,0,0,0.05);
-}
+.c-card:hover { border-color:var(--teal); box-shadow:0 6px 22px rgba(0,0,0,0.12); }
+.c-ico { width:42px; height:42px; border-radius:10px; background:var(--teal-light); display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+.c-card h5 { font-size:0.72rem; color:var(--text-light); text-transform:uppercase; letter-spacing:1px; margin-bottom:2px; font-family:'Poppins',sans-serif; }
+.c-card p { font-family:'Hind Siliguri',sans-serif; font-size:0.9rem; color:var(--text); font-weight:500; }
+.c-form { background:#fff; border-radius:var(--radius); padding:32px; box-shadow:var(--shadow); }
 .cf-title { font-family:'Hind Siliguri',sans-serif; font-size:1.2rem; font-weight:700; color:var(--dark); margin-bottom:4px; }
-.cf-sub { font-family:'Hind Siliguri',sans-serif; font-size:0.86rem; color:var(--text-light); margin-bottom:22px; }
-.fg { margin-bottom:14px; }
-.fg label { display:block; font-family:'Hind Siliguri',sans-serif; font-size:0.82rem; font-weight:600; color:var(--text); margin-bottom:5px; }
-.fg input, .fg textarea {
-  width:100%; padding:11px 14px;
-  border:1.5px solid #E2E8F0; border-radius:9px;
-  font-family:'Hind Siliguri',sans-serif; font-size:0.92rem; color:var(--text);
-  background:var(--cream); outline:none; transition:var(--tr);
-}
-.fg input:focus, .fg textarea:focus { border-color:var(--teal); background:#fff; box-shadow:0 0 0 3px rgba(13,148,136,0.1); }
+.cf-sub { font-family:'Hind Siliguri',sans-serif; font-size:0.84rem; color:var(--text-light); margin-bottom:20px; }
+.fg { margin-bottom:13px; }
+.fg label { display:block; font-family:'Hind Siliguri',sans-serif; font-size:0.8rem; font-weight:600; color:var(--text); margin-bottom:5px; }
+.fg input, .fg textarea { width:100%; padding:11px 13px; border:1.5px solid #e0ddd8; border-radius:9px; font-family:'Hind Siliguri',sans-serif; font-size:0.9rem; color:var(--text); background:var(--cream); outline:none; transition:var(--transition); }
+.fg input:focus, .fg textarea:focus { border-color:var(--teal); background:#fff; box-shadow:0 0 0 3px rgba(42,157,143,0.1); }
 .fg textarea { resize:vertical; min-height:100px; }
-.fg-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.fg-2 { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
 @media(max-width:460px){ .fg-2 { grid-template-columns:1fr; } }
-.form-submit {
+.form-btn {
   width:100%; padding:13px; border-radius:9px; border:none;
-  background:var(--orange); color:#fff;
-  font-family:'Hind Siliguri',sans-serif; font-size:0.98rem; font-weight:600;
-  cursor:pointer; transition:var(--tr);
-  box-shadow:0 4px 18px rgba(232,130,12,0.35);
+  background:var(--teal); color:#fff;
+  font-family:'Hind Siliguri',sans-serif; font-size:0.96rem; font-weight:600;
+  cursor:pointer; transition:var(--transition);
+  box-shadow:0 4px 16px rgba(42,157,143,0.3);
 }
-.form-submit:hover { background:var(--orange-dark); transform:translateY(-2px); box-shadow:0 8px 26px rgba(232,130,12,0.45); }
-#form-ok { margin-top:12px; font-family:'Hind Siliguri',sans-serif; font-size:0.88rem; color:var(--teal); display:none; }
+.form-btn:hover { background:var(--teal-dark); transform:translateY(-2px); }
+#form-ok { margin-top:12px; font-family:'Hind Siliguri',sans-serif; font-size:0.86rem; color:var(--teal); display:none; }
 
-/* ══════════════════════════════════════════
-   FOOTER — style matches uploaded HTML
-══════════════════════════════════════════ */
-footer {
-  background: var(--dark); color:rgba(255,255,255,0.8);
-  padding: 52px 5% 26px;
+/* =====================================================
+   RESPONSIVE — from aponjon0_1
+===================================================== */
+@media(max-width:768px){
+  .nav-links { display:none; flex-direction:column; width:100%; padding:12px 0; background:rgba(30,114,104,0.98); }
+  .nav-links.open { display:flex; }
+  nav { flex-wrap:wrap; }
+  .hamburger { display:flex; }
+  .cards-grid { grid-template-columns:1fr 1fr; gap:16px; }
 }
-.footer-grid {
-  display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr;
-  gap:36px; max-width:1140px; margin:0 auto 38px;
-}
-@media(max-width:820px){ .footer-grid { grid-template-columns:1fr 1fr; } }
-@media(max-width:480px){ .footer-grid { grid-template-columns:1fr; } }
-.footer-brand .nav-logo { font-size:1.5rem; margin-bottom:12px; display:block; cursor:default; }
-.footer-brand p { font-size:0.85rem; line-height:1.75; font-family:'Hind Siliguri',sans-serif; color:rgba(255,255,255,0.5); margin-bottom:18px; }
-.social-row { display:flex; gap:10px; }
-.soc-btn {
-  width:36px; height:36px; border-radius:9px; background:rgba(255,255,255,0.08);
-  display:flex; align-items:center; justify-content:center; font-size:1rem;
-  transition:var(--tr); cursor:pointer; color:#fff;
-}
-.soc-btn:hover { background:var(--orange); }
-.footer-col h4 { color:#fff; font-size:0.85rem; font-weight:700; margin-bottom:16px; text-transform:uppercase; letter-spacing:1.5px; }
-.footer-col a {
-  display:block; color:rgba(255,255,255,0.48); text-decoration:none;
-  font-size:0.85rem; margin-bottom:9px; font-family:'Hind Siliguri',sans-serif;
-  transition:var(--tr); cursor:pointer;
-}
-.footer-col a:hover { color:var(--orange); }
-.footer-contact p { font-size:0.85rem; font-family:'Hind Siliguri',sans-serif; color:rgba(255,255,255,0.48); margin-bottom:8px; display:flex; gap:8px; }
-.footer-bottom {
-  border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;
-  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;
-  text-align:center; font-size:0.8rem; color:rgba(255,255,255,0.38);
-  font-family:'Hind Siliguri',sans-serif; max-width:1140px; margin:0 auto;
+@media(max-width:480px){
+  .cards-grid { grid-template-columns:1fr; }
 }
 
-/* ══════════════════════════════════════════
-   RESPONSIVE NAV
-══════════════════════════════════════════ */
-@media(max-width:900px){ .nav-links { display:none; } .hamburger { display:flex; } }
-
-/* ══════════════════════════════════════════
-   ANIMATIONS
-══════════════════════════════════════════ */
-@keyframes fadeUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
-.fa { animation:fadeUp 0.6s ease both; }
-.fa1 { animation-delay:.1s; } .fa2 { animation-delay:.2s; } .fa3 { animation-delay:.3s; } .fa4 { animation-delay:.4s; }
+/* =====================================================
+   ANIMATIONS — from aponjon0_1
+===================================================== */
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+.fade-up   { animation:fadeUp 0.55s ease both; }
+.fade-up-2 { animation:fadeUp 0.55s 0.1s ease both; }
+.fade-up-3 { animation:fadeUp 0.55s 0.2s ease both; }
+.fade-up-4 { animation:fadeUp 0.55s 0.3s ease both; }
 </style>
 </head>
 <body>
 
-<!-- ══ NAVBAR ══ -->
+<!-- ═══════════════════════════════════════════
+     NAVBAR — aponjon0_1 structure
+═══════════════════════════════════════════ -->
 <nav id="main-nav">
-  <div class="nav-logo">AP<span>O</span>NJON</div>
-  <div class="hamburger" onclick="toggleMob()" id="hbg"><span></span><span></span><span></span></div>
+  <div class="nav-logo" onclick="showPage('home')">AP<span>O</span>NJON</div>
+  <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
   <div class="nav-links" id="nav-links">
-    <a href="#hero">হোম</a>
-    <a href="#academy">একাডেমি</a>
-    <a href="#products">খাদ্য ও পণ্য</a>
-    <a href="#leisure">বিনোদন ও পর্যটন</a>
-    <a href="#agro">কৃষি প্রকল্প</a>
-    <a href="#contact">যোগাযোগ</a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQOZrdeGvOXdNlozFI5iqYlljVkOSCE97HbMxPrk2deYRv9g/viewform" target="_blank" class="nav-reg">রেজিস্ট্রেশন</a>
+    <a onclick="showPage('home')" class="active-link" id="nav-home">হোম (Home)</a>
+    <a onclick="showPage('academy')" id="nav-academy">একাডেমি</a>
+    <a onclick="showPage('products')" id="nav-products">খাদ্য ও পণ্য</a>
+    <a onclick="showPage('education')" id="nav-education">শিক্ষা</a>
+    <a onclick="showPage('entertainment')" id="nav-entertainment">বিনোদন ও পর্যটন</a>
+    <a onclick="showPage('agro')" id="nav-agro">কৃষি প্রকল্প</a>
+    <a onclick="showPage('contact')" id="nav-contact">যোগাযোগ</a>
   </div>
 </nav>
-<div class="mob-menu" id="mob-menu">
-  <a href="#hero" onclick="closeMob()">হোম</a>
-  <a href="#academy" onclick="closeMob()">একাডেমি</a>
-  <a href="#products" onclick="closeMob()">খাদ্য ও পণ্য</a>
-  <a href="#leisure" onclick="closeMob()">বিনোদন ও পর্যটন</a>
-  <a href="#agro" onclick="closeMob()">কৃষি প্রকল্প</a>
-  <a href="#contact" onclick="closeMob()">যোগাযোগ</a>
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQOZrdeGvOXdNlozFI5iqYlljVkOSCE97HbMxPrk2deYRv9g/viewform" target="_blank" style="color:var(--orange);font-weight:700">রেজিস্ট্রেশন করুন →</a>
-</div>
 
-<!-- ══════════════════════════════════════════
-     HERO — copied exactly from uploaded HTML,
-     only text values updated per instructions
-══════════════════════════════════════════ -->
-<section id="hero" class="hero">
-  <div class="hero-badge fa">🌙 আস্সালামু আলাইকুম — Welcome to Aponjon</div>
-  <h1 class="fa fa1">আপনজনের<br/><span>সুরক্ষায়</span></h1>
-  <div class="hero-bangla fa fa2">Your Journey to Better Living</div>
-  <div class="hero-trust fa fa3">
-    <div class="hero-trust-badge"><span class="ck">✓</span> ১০০% হালাল</div>
-    <div class="hero-trust-badge"><span class="ck">✓</span> Al-Azhar Certified Teachers</div>
-    <div class="hero-trust-badge"><span class="ck">✓</span> ফি রিফান্ড গ্যারান্টি</div>
-  </div>
-  <div class="hero-btns fa fa4">
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQOZrdeGvOXdNlozFI5iqYlljVkOSCE97HbMxPrk2deYRv9g/viewform" target="_blank" class="hero-btn-primary">ফরজ ইলম কোর্সে রেজিস্ট্রেশন করুন →</a>
-    <a href="#academy" class="hero-btn-secondary">আমাদের সেবাসমূহ দেখুন ↓</a>
-  </div>
-</section>
+<!-- ═══════════════════════════════════════════
+     HOME PAGE
+═══════════════════════════════════════════ -->
+<div class="page active" id="page-home">
 
-<!-- ══════════════════════════════════════════
-     SECTION 1 — ACADEMY
-══════════════════════════════════════════ -->
-<section id="academy" class="section">
-  <div class="section-inner">
-    <div class="section-center">
-      <div class="section-eyebrow">সবচেয়ে গুরুত্বপূর্ণ · Most Important</div>
-      <h2 class="section-title">APONJON Fardh Ilm Academy</h2>
-      <p class="section-subtitle">ফরজ আইন শিক্ষা — Essential Knowledge for Every Muslim</p>
-      <div class="title-line"></div>
+  <!-- Hero — aponjon0_1 structure, aponjon0_2 content -->
+  <div class="hero">
+    <div class="hero-badge fade-up">🌙 আস্সালামু আলাইকুম — Welcome to Aponjon</div>
+    <h1 class="fade-up-2">আপনজনের <span>সুরক্ষায়</span></h1>
+    <div class="hero-bangla fade-up-3">Your Journey to Better Living</div>
+    <div class="hero-trust fade-up-3">
+      <div class="hero-trust-badge"><span class="ck">✓</span> ১০০% হালাল</div>
+      <div class="hero-trust-badge"><span class="ck">✓</span> Al-Azhar Certified Teachers</div>
+      <div class="hero-trust-badge"><span class="ck">✓</span> ফি রিফান্ড গ্যারান্টি</div>
+    </div>
+    <div class="hero-btns fade-up-4">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQOZrdeGvOXdNlozFI5iqYlljVkOSCE97HbMxPrk2deYRv9g/viewform" target="_blank" class="hero-btn-primary">ফরজ ইলম কোর্সে রেজিস্ট্রেশন করুন →</a>
+      <a onclick="showPage('academy')" class="hero-btn-secondary">আমাদের সেবাসমূহ দেখুন ↓</a>
+    </div>
+  </div>
+
+  <!-- Section label -->
+  <div class="section-label" id="categories">
+    <h2>আমাদের বিভাগসমূহ | Our Categories</h2>
+    <p>Islamic values, quality living, and community — all in one place</p>
+    <div class="divider"></div>
+  </div>
+
+  <!-- Homepage short cards — per instruction spec -->
+  <div class="cards-grid">
+
+    <!-- Academy -->
+    <div class="card teal fade-up" onclick="showPage('academy')">
+      <div class="card-icon">🎓</div>
+      <h3>APONJON Fardh Ilm Academy</h3>
+      <p class="card-desc">ফরজ আইন শিক্ষার অনলাইন কোর্স — মাত্র ১৫টি ক্লাসে, আল-আজহার বিশ্ববিদ্যালয়ের শিক্ষকের তত্ত্বাবধানে।</p>
+      <div class="card-stat">৳ ৩,৯৯৯ | ফি ফেরতের গ্যারান্টি</div>
+      <div class="card-arrow">বিস্তারিত দেখুন →</div>
     </div>
 
+    <!-- Products -->
+    <div class="card orange fade-up-2" onclick="showPage('products')">
+      <div class="card-icon">🛒</div>
+      <h3>খাঁটি ও অর্গানিক পণ্য</h3>
+      <p class="card-desc">রাসায়নিকমুক্ত খাদ্য, হালাল হাইজিন পণ্য এবং গৃহস্থালি সামগ্রী।</p>
+      <div class="card-stat">100% Halal | Organic | Chemical Free</div>
+      <div class="card-arrow">বিস্তারিত দেখুন →</div>
+    </div>
+
+    <!-- Education -->
+    <div class="card green fade-up-3" onclick="showPage('education')">
+      <div class="card-icon">💻</div>
+      <h3>শিক্ষা ও দক্ষতা উন্নয়ন</h3>
+      <p class="card-desc">ডিজিটাল দক্ষতা, ফ্রিল্যান্সিং এবং ইসলামিক দৃষ্টিকোণ থেকে জ্ঞানচর্চা।</p>
+      <div class="card-stat">Online | Self-paced</div>
+      <div class="card-arrow">বিস্তারিত দেখুন →</div>
+    </div>
+
+    <!-- Entertainment & Tourism -->
+    <div class="card purple fade-up-4" onclick="showPage('entertainment')">
+      <div class="card-icon">🌍</div>
+      <h3>বিনোদন ও পর্যটন</h3>
+      <p class="card-desc">পরিবারবান্ধব ইসলামিক কন্টেন্ট এবং হালাল ট্যুর প্যাকেজ — দেশে ও বিদেশে।</p>
+      <div class="card-stat">Family Friendly | Halal Travel</div>
+      <div class="card-arrow">বিস্তারিত দেখুন →</div>
+    </div>
+
+    <!-- Agro -->
+    <div class="card olive-card fade-up" onclick="showPage('agro')">
+      <div class="card-icon">🌱</div>
+      <h3>APONJON Small Agro Project</h3>
+      <p class="card-desc">স্বাবলম্বী জীবনের জন্য অর্গানিক কৃষি, হোম গার্ডেনিং এবং ফার্ম-টু-টেবিল মার্কেট।</p>
+      <div class="card-stat">Organic | Eco Friendly | Self-Reliance</div>
+      <div class="card-arrow">বিস্তারিত দেখুন →</div>
+    </div>
+
+    <!-- Contact -->
+    <div class="card dark-card fade-up-2" onclick="showPage('contact')">
+      <div class="card-icon">📞</div>
+      <h3>যোগাযোগ করুন</h3>
+      <p class="card-desc">আমাদের যেকোনো সেবা সম্পর্কে জানতে বা অর্ডার করতে সরাসরি যোগাযোগ করুন।</p>
+      <div class="card-stat">info@aponjon.com | +880 1700-000000</div>
+      <div class="card-arrow">যোগাযোগ করুন →</div>
+    </div>
+
+  </div><!-- /cards-grid -->
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="cursor:default">AP<span style="color:var(--orange)">O</span>NJON</div>
+        <p>আপনজনের সুরক্ষায় — Your Journey to Better Living. Islamic values, quality products, and community for every Bangladeshi Muslim family.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a onclick="showPage('academy')">ফরজ ইলম একাডেমি</a>
+        <a onclick="showPage('products')">খাঁটি খাদ্য পণ্য</a>
+        <a onclick="showPage('education')">শিক্ষা কোর্স</a>
+        <a onclick="showPage('entertainment')">বিনোদন ও পর্যটন</a>
+        <a onclick="showPage('agro')">কৃষি প্রকল্প</a>
+      </div>
+      <div class="footer-col footer-contact">
+        <h4>Contact Us | যোগাযোগ</h4>
+        <p>📧 info@aponjon.com</p>
+        <p>📞 +880 1700-000000</p>
+        <p>📍 Dhaka, Bangladesh</p>
+        <p>🌐 www.aponjon.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Aponjon. All rights reserved. | আপনজন — আপনজনের সুরক্ষায়</div>
+  </footer>
+</div><!-- /page-home -->
+
+
+<!-- ═══════════════════════════════════════════
+     ACADEMY PAGE — full detail with all specs
+═══════════════════════════════════════════ -->
+<div class="page" id="page-academy">
+
+  <div class="sub-hero teal-bg">
+    <a class="back-btn" onclick="showPage('home')">← হোমে ফিরুন</a>
+    <h1>APONJON Fardh Ilm Academy</h1>
+    <div class="bangla-title">ফরজ আইন শিক্ষা — Essential Knowledge for Every Muslim</div>
+    <p>আল-আজহার বিশ্ববিদ্যালয়ের শিক্ষকের তত্ত্বাবধানে অনলাইন লাইভ কোর্স — মাত্র ১৫টি ক্লাসে।</p>
+  </div>
+
+  <div class="acad-section">
+
     <!-- Subject pills -->
-    <div class="subject-pills">
-      <span class="subject-pill">মৌলিক সুরা</span>
-      <span class="subject-pill">শিরক</span>
-      <span class="subject-pill">বিদআত</span>
-      <span class="subject-pill">কুফর</span>
-      <span class="subject-pill">নিফাক</span>
-      <span class="subject-pill">হাকুল্লাহ</span>
-      <span class="subject-pill">হাকুল ইবাদ</span>
+    <div style="text-align:center;margin-bottom:8px">
+      <div style="font-family:'Hind Siliguri',sans-serif;font-size:0.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--teal);font-weight:600;margin-bottom:14px">কোর্সের বিষয়সমূহ — Course Subjects</div>
+    </div>
+    <div class="subject-pills" style="justify-content:center">
+      <span class="sub-pill">মৌলিক সুরা</span>
+      <span class="sub-pill">শিরক</span>
+      <span class="sub-pill">বিদআত</span>
+      <span class="sub-pill">কুফর</span>
+      <span class="sub-pill">নিফাক</span>
+      <span class="sub-pill">হাকুল্লাহ</span>
+      <span class="sub-pill">হাকুল ইবাদ</span>
     </div>
 
     <!-- 4 Stat cards -->
     <div class="stat-row">
-      <div class="stat-card">
-        <div class="stat-icon">📚</div>
-        <div class="stat-val">১৫টি</div>
-        <div class="stat-lbl">মোট ক্লাস</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">💰</div>
-        <div class="stat-val">৳ ৩,৯৯৯</div>
-        <div class="stat-lbl">কোর্স ফি</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🕗</div>
-        <div class="stat-val">রাত ৮টা</div>
-        <div class="stat-lbl">১ ঘন্টা / ক্লাস</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🔥</div>
-        <div class="stat-val">মাত্র ১০</div>
-        <div class="stat-lbl">জন প্রতি ব্যাচ</div>
-      </div>
+      <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-num">১৫টি</div><div class="stat-lbl">মোট ক্লাস</div></div>
+      <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-num">৳ ৩,৯৯৯</div><div class="stat-lbl">কোর্স ফি</div></div>
+      <div class="stat-card"><div class="stat-icon">🕗</div><div class="stat-num">রাত ৮টা</div><div class="stat-lbl">১ ঘন্টা / ক্লাস</div></div>
+      <div class="stat-card"><div class="stat-icon">🔥</div><div class="stat-num">মাত্র ১০</div><div class="stat-lbl">জন / ব্যাচ</div></div>
     </div>
 
-    <!-- Refund box -->
-    <div class="refund-box">
-      <div class="refund-title">💸 ফি রিফান্ড গ্যারান্টি</div>
-      <div class="refund-head">যেকোনো একটি শর্ত পূরণ করলে সম্পূর্ণ কোর্স ফি ফেরত পাবেন!</div>
-      <ul class="refund-list">
-        <li>সবগুলো ক্লাসে উপস্থিত থাকলে সম্পূর্ণ কোর্স ফি ফেরত</li>
-        <li>নিয়মিত হোমওয়ার্ক জমা দিলে সম্পূর্ণ কোর্স ফি ফেরত</li>
-        <li>ফাইনাল পরীক্ষায় নির্দিষ্ট মার্ক অতিক্রম করলে কোর্স ফি ফেরত</li>
-      </ul>
-    </div>
-
-    <!-- Teacher + Bonus -->
+    <!-- Row 1: Course details + Refund guarantee -->
     <div class="acad-cols">
+      <div class="course-card-dark">
+        <div class="cc-eyebrow">📋 কোর্স বিবরণ — Course Details</div>
+        <div class="cc-row"><span class="cc-lbl">মোট ক্লাস</span><span class="cc-val">15 Classes</span></div>
+        <div class="cc-row"><span class="cc-lbl">ক্লাসের সময়</span><span class="cc-val">রাত ৮টা · ১ ঘন্টা</span></div>
+        <div class="cc-row"><span class="cc-lbl">ব্যাচ সাইজ</span><span class="cc-val"><span class="hot">🔥 মাত্র ১০ জন</span> প্রতি ব্যাচে!</span></div>
+        <div class="price-row-dark"><span class="pr-lbl">কোর্স ফি (Course Fee)</span><span class="pr-val">৳ 3,999</span></div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQOZrdeGvOXdNlozFI5iqYlljVkOSCE97HbMxPrk2deYRv9g/viewform" target="_blank" class="btn-orange-lg" style="width:100%;justify-content:center;border-radius:12px">আজই সিট বুক করুন →</a>
+      </div>
+      <div class="refund-box-dark">
+        <div class="rb-eyebrow">💸 ফি রিফান্ড গ্যারান্টি</div>
+        <div class="rb-head">যেকোনো একটি শর্ত পূরণ করলে সম্পূর্ণ ফি ফেরত পাবেন!</div>
+        <ul class="rb-list">
+          <li>সব ক্লাসে উপস্থিত থাকলে সম্পূর্ণ কোর্স ফি ফেরত</li>
+          <li>নিয়মিত হোমওয়ার্ক জমা দিলে সম্পূর্ণ কোর্স ফি ফেরত</li>
+          <li>ফাইনাল পরীক্ষায় পাস করলে সম্পূর্ণ কোর্স ফি ফেরত</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="sub-section" style="margin-top:32px">
+      <h2 style="color:var(--teal-dark)">⚙️ কোর্সটি কীভাবে কাজ করে?</h2>
+      <div class="bangla-sub">How It Works — শেখা নিশ্চিত করার পদ্ধতি</div>
+      <div class="how-grid">
+        <div class="how-step">
+          <div class="how-num">১</div>
+          <h5>ক্লাস</h5>
+          <p>লাইভ অনলাইন ক্লাসে অংশগ্রহণ করুন শিক্ষকের সাথে।</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">২</div>
+          <h5>হোমওয়ার্ক ভিডিও জমা</h5>
+          <p>নিজের তেলাওয়াত বা অনুশীলনের ভিডিও রেকর্ড করে জমা দিন।</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">৩</div>
+          <h5>শিক্ষক সংশোধন</h5>
+          <p>শিক্ষক ভিডিও দেখে ফিডব্যাক ও সংশোধনী দেন।</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">৪</div>
+          <h5>নিজে ঠিক করুন</h5>
+          <p>শিক্ষার্থী ফিডব্যাক অনুযায়ী নিজে অনুশীলন করে উন্নত করেন।</p>
+        </div>
+      </div>
+      <div class="how-result">✅ Result: শেখা নিশ্চিত — শুধু সার্টিফিকেট নয়!</div>
+    </div>
+
+    <!-- Row 2: Teacher + Bonus -->
+    <div class="acad-cols" style="margin-top:8px">
       <div class="teacher-card">
-        <div style="font-family:'Hind Siliguri',sans-serif;font-size:0.76rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-light);font-weight:600;margin-bottom:18px">👨‍🏫 আপনার শিক্ষক — Your Teacher</div>
-        <div class="teacher-top">
-          <div class="teacher-avatar">🕌</div>
+        <div class="ts-label">👨‍🏫 আপনার শিক্ষক — Your Teacher</div>
+        <div class="t-profile">
+          <div class="t-avatar">🕌</div>
           <div>
-            <div class="teacher-name">Muhammad Huzaifa Bin Ismail</div>
-            <div class="teacher-uni">Al-Azhar University, Egypt</div>
-            <div class="teacher-dept">Department: Qira'at and Quranic Sciences</div>
+            <div class="t-name">Muhammad Huzaifa Bin Ismail</div>
+            <div class="t-uni">Al-Azhar University, Egypt</div>
+            <div class="t-dept">Department: Qira'at and Quranic Sciences</div>
           </div>
         </div>
-        <div class="teacher-row"><strong>Teaching:</strong> Nazera · Hifz · Tajweed</div>
-        <div class="teacher-row"><strong>Special Skills:</strong> Correct Recitation · Qira'at · Maqamat</div>
+        <div class="t-row"><strong>Teaching:</strong> Nazera · Hifz · Tajweed</div>
+        <div class="t-row"><strong>Special Skills:</strong> Correct Recitation · Qira'at · Maqamat</div>
         <div class="skill-tags">
-          <span class="skill-tag">Al-Azhar Certified</span>
-          <span class="skill-tag">Tajweed Expert</span>
+          <span class="skill-tag">Correct Recitation</span>
+          <span class="skill-tag">Qira'at</span>
+          <span class="skill-tag">Maqamat</span>
+          <span class="skill-tag">Tajweed</span>
           <span class="skill-tag">Hifz Support</span>
         </div>
-        <div class="supervisor-bar">
-          👤 <strong>সুপারভাইজার:</strong> Jafor Emran — Founder, APONJON Fardh Ilm Academy
-        </div>
+        <div class="supervisor-bar">👤 <strong>সুপারভাইজার:</strong> Jafor Emran — Founder, APONJON Fardh Ilm Academy</div>
       </div>
-
       <div class="bonus-card">
-        <div class="bonus-label">🎁 রেজিস্ট্রেশন বোনাস</div>
-        <div class="bonus-icon">🎁</div>
-        <div class="bonus-text">রেজিস্ট্রেশন বা রেফারেন্সের মাধ্যমে পান বিশেষ উপহার — সীমিত সময়ের অফার!</div>
-        <div class="bonus-items">
-          <div class="bonus-item">📚 Personal Library উপহার</div>
-          <div class="bonus-item">👕 Premium T-Shirt উপহার</div>
+        <div class="bb-eyebrow">🎁 রেজিস্ট্রেশন বোনাস</div>
+        <div class="bb-icon">🎁</div>
+        <div class="bb-text">রেজিস্ট্রেশন বা রেফারেন্সের মাধ্যমে পান বিশেষ উপহার — সীমিত সময়ের অফার!</div>
+        <div class="bb-items">
+          <div class="bb-item">📚 Personal Library উপহার</div>
+          <div class="bb-item">👕 Premium T-Shirt উপহার</div>
         </div>
       </div>
     </div>
 
-    <!-- Fashion one-liner -->
-    <div class="fashion-bar">
-      <div class="fashion-bar-icon">👗</div>
-      <div class="fashion-bar-text">
-        <h4>Aponjon Islamic Fashion</h4>
-        <p>মার্জিত ও আধুনিক ইসলামিক পোশাক — পরিবারের সকলের জন্য</p>
-      </div>
-      <div class="fashion-pills">
-        <span class="fashion-pill">Men</span>
-        <span class="fashion-pill">Women</span>
-        <span class="fashion-pill">Children</span>
+    <!-- Final CTA -->
+    <div class="acad-cta-bar">
+      <h3>আজই আপনার সিট নিশ্চিত করুন — আসন সীমিত!</h3>
+      <p>প্রতি ব্যাচে মাত্র ১০টি সিট — দ্রুত পূর্ণ হয়ে যায়। সুযোগ মিস করবেন না!</p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQOZrdeGvOXdNlozFI5iqYlljVkOSCE97HbMxPrk2deYRv9g/viewform" target="_blank" class="btn-orange-lg" style="font-size:1.08rem;padding:16px 42px">আজই রেজিস্ট্রেশন করুন — আসন সীমিত! →</a>
+    </div>
+
+    <!-- Islamic Fashion -->
+    <div class="fashion-row">
+      <h4>👗 Aponjon Islamic Fashion</h4>
+      <p>ইসলামিক ফ্যাশন — মার্জিত ও আধুনিক পোশাক | Men | Women | Children</p>
+      <div class="fashion-grid">
+        <div class="f-card"><div class="f-icon">🧕</div><h5>Women's Modest Wear</h5><p>Modern abayas, hijabs, and modest clothing — stylish yet fully Islamic.</p></div>
+        <div class="f-card"><div class="f-icon">👘</div><h5>Men's Islamic Clothing</h5><p>Panjabis, jubba, and kurtas — elegant traditional designs for everyday wear.</p></div>
+        <div class="f-card"><div class="f-icon">👶</div><h5>Kids Islamic Fashion</h5><p>Cute and comfortable Islamic clothing designed specially for children.</p></div>
       </div>
     </div>
 
-    <!-- Academy CTA -->
-    <div class="acad-cta">
-      <h3>আজই আপনার সিট নিশ্চিত করুন</h3>
-      <p>প্রতি ব্যাচে মাত্র ১০টি সিট — দ্রুত পূর্ণ হয়ে যায়!</p>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQOZrdeGvOXdNlozFI5iqYlljVkOSCE97HbMxPrk2deYRv9g/viewform" target="_blank" class="btn-orange" style="font-size:1.05rem;padding:15px 38px">আজই রেজিস্ট্রেশন করুন →</a>
+  </div><!-- /acad-section -->
+
+  <footer>
+    <div class="footer-bottom" style="border:none">© 2026 Aponjon | <a onclick="showPage('home')" style="color:var(--teal);cursor:pointer">← হোমে ফিরুন</a></div>
+  </footer>
+</div><!-- /page-academy -->
+
+
+<!-- ═══════════════════════════════════════════
+     PRODUCTS PAGE
+═══════════════════════════════════════════ -->
+<div class="page" id="page-products">
+  <div class="sub-hero orange-bg">
+    <a class="back-btn" onclick="showPage('home')">← হোমে ফিরুন</a>
+    <h1>খাঁটি ও অর্গানিক পণ্য</h1>
+    <div class="bangla-title">Pure Foods · House & Kitchen · Hygiene Products</div>
+    <p>রাসায়নিকমুক্ত, হালাল-সার্টিফাইড পণ্য — সুস্থ ও ইসলামিক জীবনযাপনের জন্য।</p>
+  </div>
+  <div class="sub-content">
+
+    <!-- Pure Foods -->
+    <div class="sub-section">
+      <h2 style="color:var(--orange-dark)">🥗 APONJON Pure Foods | অর্গানিক খাদ্য</h2>
+      <div class="bangla-sub">খাঁটি ও অর্গানিক খাদ্য — রাসায়নিক মুক্ত ও স্বাস্থ্যকর</div>
+      <div class="features-grid">
+        <div class="feat-card o"><div class="feat-icon">🍯</div><h4>Pure Honey & Natural Products</h4><p>১০০% খাঁটি, আনপ্রোসেসড মধু এবং প্রাকৃতিক হার্বাল পণ্য সরাসরি বিশ্বস্ত ফার্ম থেকে।</p></div>
+        <div class="feat-card o"><div class="feat-icon">🌾</div><h4>Organic Rice & Grains</h4><p>রাসায়নিকমুক্ত চাল, গম ও শস্যজাত পণ্য — যাচাইকৃত অর্গানিক ফার্ম থেকে।</p></div>
+        <div class="feat-card o"><div class="feat-icon">🥛</div><h4>Dairy & Fresh Products</h4><p>তাজা, খাঁটি দুধ ও দুগ্ধজাত পণ্য — কোনো সংযোজন বা প্রিজার্ভেটিভ ছাড়া।</p></div>
+        <div class="feat-card o"><div class="feat-icon">🥦</div><h4>Seasonal Vegetables</h4><p>স্থানীয়ভাবে উৎপাদিত, কীটনাশকমুক্ত মৌসুমী সবজি তাজা ডেলিভারি।</p></div>
+      </div>
+      <div class="tag-row"><span class="tag o">100% Halal</span><span class="tag o">Organic Certified</span><span class="tag o">Chemical Free</span><span class="tag o">Local Farmers</span></div>
+    </div>
+
+    <!-- House & Kitchen -->
+    <div class="sub-section">
+      <h2 style="color:var(--orange-dark)">🏠 House & Kitchen | গৃহ ও রান্নাঘর</h2>
+      <div class="bangla-sub">প্রয়োজনীয় সামগ্রী — ঘর ও রান্নাঘরের জন্য</div>
+      <div class="features-grid">
+        <div class="feat-card o"><div class="feat-icon">🍳</div><h4>Kitchen Essentials</h4><p>মানসম্পন্ন কুকওয়্যার, বাসনপত্র ও রান্নাঘরের সরঞ্জাম।</p></div>
+        <div class="feat-card o"><div class="feat-icon">🛋️</div><h4>Home Décor & Islamic Items</h4><p>ইসলামিক হোম ডেকোর, জায়নামাজ, ওয়াল আর্ট ও ক্যালিগ্রাফি।</p></div>
+        <div class="feat-card o"><div class="feat-icon">🧹</div><h4>Cleaning & Hygiene</h4><p>প্রাকৃতিক, হালাল-সার্টিফাইড ক্লিনিং পণ্য — পরিবার ও পরিবেশের জন্য নিরাপদ।</p></div>
+      </div>
+    </div>
+
+    <!-- Hygiene -->
+    <div class="sub-section">
+      <h2 style="color:var(--orange-dark)">🧴 Hygiene Products | হাইজিন পণ্য</h2>
+      <div class="bangla-sub">হালাল সার্টিফাইড ব্যক্তিগত যত্ন পণ্য</div>
+      <div class="features-grid">
+        <div class="feat-card o"><div class="feat-icon">🧼</div><h4>Natural Soaps & Cleansers</h4><p>হাতে তৈরি প্রাকৃতিক সাবান — অ্যালকোহল ও ক্ষতিকর রাসায়নিকমুক্ত।</p></div>
+        <div class="feat-card o"><div class="feat-icon">🦷</div><h4>Oral Care (Miswak Based)</h4><p>মিসওয়াক-ভিত্তিক টুথপেস্ট ও ওরাল কেয়ার পণ্য — সুন্নাহ মেনে।</p></div>
+        <div class="feat-card o"><div class="feat-icon">💆</div><h4>Hair & Skin Care</h4><p>প্রাকৃতিক তেল, হার্বাল চুলের চিকিৎসা এবং অ্যালকোহলমুক্ত স্কিন কেয়ার।</p></div>
+        <div class="feat-card o"><div class="feat-icon">👶</div><h4>Baby & Child Care</h4><p>শিশুদের জন্য বিশেষভাবে তৈরি মৃদু, নিরাপদ, হালাল-সার্টিফাইড পণ্য।</p></div>
+      </div>
+      <div class="tag-row"><span class="tag o">Halal Certified</span><span class="tag o">Alcohol Free</span><span class="tag o">Natural Ingredients</span><span class="tag o">Family Safe</span></div>
+    </div>
+
+    <div class="info-box">
+      <h3>✅ আমাদের মানের প্রতিশ্রুতি — Our Quality Promise</h3>
+      <p>Aponjon-এর মাধ্যমে বিক্রি হওয়া প্রতিটি পণ্য সতর্কতার সাথে যাচাই করা — হালাল সার্টিফাইড, ক্ষতিকর রাসায়নিকমুক্ত এবং বিশ্বস্ত স্থানীয় ও অর্গানিক সরবরাহকারী থেকে সংগ্রহ করা।</p>
+      <a onclick="showPage('contact')" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:var(--orange-dark);font-weight:600;font-family:'Hind Siliguri',sans-serif;cursor:pointer;font-size:0.9rem">অর্ডার করতে যোগাযোগ করুন →</a>
     </div>
   </div>
-</section>
+  <footer><div class="footer-bottom" style="border:none">© 2026 Aponjon | <a onclick="showPage('home')" style="color:var(--orange);cursor:pointer">← হোমে ফিরুন</a></div></footer>
+</div><!-- /page-products -->
 
-<!-- ══════════════════════════════════════════
-     SECTION 2 — PRODUCTS
-══════════════════════════════════════════ -->
-<section id="products" class="section">
-  <div class="section-inner">
-    <div class="section-eyebrow">মানসম্পন্ন পণ্য · Quality Products</div>
-    <h2 class="section-title">খাঁটি ও অর্গানিক জীবনযাপন</h2>
-    <p class="section-subtitle">সুস্থ, হালাল ও রাসায়নিকমুক্ত জীবনের জন্য সেরা পণ্য</p>
-    <div class="title-line"></div>
-    <div class="prod-grid">
 
-      <!-- Pure Foods -->
-      <div class="wcard o-accent">
-        <div class="wcard-icon">🥦</div>
-        <h3>APONJON Pure Foods</h3>
-        <p>খাঁটি মধু, জৈব চাল, তাজা দুধ ও কীটনাশকমুক্ত মৌসুমী সবজি — সরাসরি বিশ্বস্ত কৃষক থেকে আপনার দরজায়।</p>
-        <div class="pill-row">
-          <span class="pill pill-tl">Halal</span>
-          <span class="pill pill-gr">Organic</span>
-          <span class="pill pill-or">Chemical Free</span>
-        </div>
-        <a href="#contact" class="sec-link orange">অর্ডার করুন →</a>
-      </div>
-
-      <!-- House & Kitchen -->
-      <div class="wcard t-accent">
-        <div class="wcard-icon">🏠</div>
-        <h3>House & Kitchen</h3>
-        <p>মানসম্পন্ন রান্নাঘরের সরঞ্জাম, ইসলামিক হোম ডেকোর, জায়নামাজ ও ক্যালিগ্রাফি — আপনার ঘরকে সুন্দর ও পরিপূর্ণ করুন।</p>
-        <div class="pill-row">
-          <span class="pill pill-tl">Halal Certified</span>
-          <span class="pill pill-gr">Eco Friendly</span>
-        </div>
-        <a href="#contact" class="sec-link">অর্ডার করুন →</a>
-      </div>
-
-      <!-- Hygiene -->
-      <div class="wcard g-accent">
-        <div class="wcard-icon">🧴</div>
-        <h3>Hygiene Products</h3>
-        <p>মিসওয়াক-ভিত্তিক ওরাল কেয়ার, প্রাকৃতিক সাবান, হার্বাল চুলের যত্ন ও শিশুদের জন্য নিরাপদ বেবি কেয়ার পণ্য।</p>
-        <div class="pill-row">
-          <span class="pill pill-tl">Halal</span>
-          <span class="pill pill-or">Alcohol Free</span>
-          <span class="pill pill-gr">Natural</span>
-        </div>
-        <a href="#contact" class="sec-link" style="color:#22A45D">অর্ডার করুন →</a>
-      </div>
-
-    </div>
+<!-- ═══════════════════════════════════════════
+     EDUCATION PAGE
+═══════════════════════════════════════════ -->
+<div class="page" id="page-education">
+  <div class="sub-hero green-bg">
+    <a class="back-btn" onclick="showPage('home')">← হোমে ফিরুন</a>
+    <h1>শিক্ষা ও দক্ষতা উন্নয়ন</h1>
+    <div class="bangla-title">Education — প্রযুক্তিভিত্তিক জ্ঞান ও আধুনিক দক্ষতা</div>
+    <p>ডিজিটাল সাক্ষরতা, ফ্রিল্যান্সিং ও ইসলামিক দৃষ্টিকোণ থেকে জ্ঞানচর্চা — সব বয়সের জন্য।</p>
   </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     SECTION 3 — EDUCATION
-══════════════════════════════════════════ -->
-<section id="education" class="section">
-  <div class="section-inner">
-    <div class="section-eyebrow">বিকাশ · Growth</div>
-    <h2 class="section-title">শিক্ষা ও দক্ষতা উন্নয়ন</h2>
-    <p class="section-subtitle">প্রযুক্তিভিত্তিক জ্ঞান ও আধুনিক দক্ষতা — সব বয়সের জন্য</p>
-    <div class="title-line"></div>
-    <div class="edu-card-wide">
-      <div class="edu-left">
-        <div class="edu-icon-big">🎓</div>
-      </div>
-      <div class="edu-right">
-        <h3>Education Program | শিক্ষা কার্যক্রম</h3>
-        <p>ডিজিটাল সাক্ষরতা, ফ্রিল্যান্সিং ও অনলাইন আয়, একাডেমিক সাপোর্ট এবং ইসলামিক দৃষ্টিভঙ্গিতে আধুনিক বিজ্ঞান — বাংলাদেশের প্রতিটি মুসলিম পরিবারের জন্য মানসম্পন্ন শিক্ষার সুযোগ।</p>
-        <div class="pill-row">
-          <span class="pill pill-tl">All Ages</span>
-          <span class="pill pill-or">Bilingual</span>
-          <span class="pill pill-gr">Islamic Perspective</span>
-        </div>
-        <a href="#contact" class="btn-outline">কোর্স দেখুন →</a>
+  <div class="sub-content">
+    <div class="sub-section">
+      <h2 style="color:var(--green-dark)">💻 Technology & Skills | প্রযুক্তি ও দক্ষতা</h2>
+      <div class="bangla-sub">আধুনিক প্রযুক্তি শিক্ষা — সবার জন্য</div>
+      <div class="features-grid">
+        <div class="feat-card g"><div class="feat-icon">💻</div><h4>Digital Literacy</h4><p>মৌলিক থেকে উন্নত কম্পিউটার ও ইন্টারনেট দক্ষতা — শিক্ষার্থী, অভিভাবক ও পেশাদারদের জন্য।</p></div>
+        <div class="feat-card g"><div class="feat-icon">📱</div><h4>Freelancing & Online Work</h4><p>ফ্রিল্যান্সিং, গ্রাফিক ডিজাইন, কন্টেন্ট ক্রিয়েশন ও অনলাইন আয়ের বাস্তব কোর্স।</p></div>
+        <div class="feat-card g"><div class="feat-icon">🔬</div><h4>Science & Research</h4><p>ইসলামিক দৃষ্টিভঙ্গিতে আধুনিক বিজ্ঞান ও গবেষণার সংযোগ।</p></div>
+        <div class="feat-card g"><div class="feat-icon">📚</div><h4>Academic Support</h4><p>স্কুল ও বিশ্ববিদ্যালয় শিক্ষার্থীদের জন্য স্টাডি ম্যাটেরিয়াল ও টিউটরিং সাপোর্ট।</p></div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     SECTION 4 — LEISURE & COMMUNITY
-══════════════════════════════════════════ -->
-<section id="leisure" class="section">
-  <div class="section-inner">
-    <div class="section-eyebrow">অবসর · Leisure</div>
-    <h2 class="section-title">বিনোদন ও পর্যটন</h2>
-    <p class="section-subtitle">পরিবার-বান্ধব হালাল বিনোদন ও ইসলামিক ট্রাভেল প্যাকেজ</p>
-    <div class="title-line"></div>
-    <div class="leisure-grid">
-
-      <!-- Entertainment -->
-      <div class="lcard">
-        <div class="lcard-head lcard-ent">
-          <div class="lcard-head-icon">🎬</div>
-          <h3>Entertainment | বিনোদন</h3>
-          <div class="lcard-head-sub">পরিবার-বান্ধব কন্টেন্ট — ইসলামিক মূল্যবোধে</div>
-        </div>
-        <div class="lcard-body">
-          <p>ইসলামিক ডকুমেন্টারি, পারিবারিক গেমস, শিশুদের কন্টেন্ট ও নাশিদ — আপনার পুরো পরিবারের জন্য হালাল আনন্দের জায়গা।</p>
-          <div class="pill-row">
-            <span class="pill pill-dk">Family Friendly</span>
-            <span class="pill pill-tl">Halal</span>
-          </div>
-          <a href="#contact" class="sec-link" style="color:#7B5EA7">আরও জানুন →</a>
-        </div>
-      </div>
-
-      <!-- Tourism -->
-      <div class="lcard">
-        <div class="lcard-head lcard-tour">
-          <div class="lcard-head-icon">✈️</div>
-          <h3>Aponjon Tourism | পর্যটন</h3>
-          <div class="lcard-head-sub">দেশ ও বিদেশ ভ্রমণ — হালাল ট্যুর প্যাকেজ</div>
-        </div>
-        <div class="lcard-body">
-          <p>উমরাহ ও হজ প্যাকেজ, তুরস্ক ও ইসলামিক হেরিটেজ ট্যুর, বাংলাদেশ লোকাল ট্যুর — হালাল খাবার ও নামাজের সুবিধাসহ সম্পূর্ণ ভ্রমণ সেবা।</p>
-          <div class="pill-row">
-            <span class="pill pill-tl">Halal Travel</span>
-            <span class="pill pill-gr">Guided Tours</span>
-          </div>
-          <a href="#contact" class="sec-link">আরও জানুন →</a>
-        </div>
-      </div>
-
+    <div class="info-box">
+      <h3>🎯 আমাদের শিক্ষার দর্শন — Our Educational Vision</h3>
+      <p>Aponjon Education ইসলামিক মূল্যবোধ ও আধুনিক জ্ঞানের মধ্যে সেতুবন্ধন তৈরি করে। আমরা বিশ্বাস করি প্রতিটি বাংলাদেশী মুসলিম পরিবার মানসম্পন্ন শিক্ষার সুযোগ পাওয়ার যোগ্য।</p>
+      <div class="tag-row"><span class="tag g">All Ages</span><span class="tag g">Bilingual Content</span><span class="tag g">Islamic Perspective</span><span class="tag g">Practical Skills</span></div>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQOZrdeGvOXdNlozFI5iqYlljVkOSCE97HbMxPrk2deYRv9g/viewform" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:var(--green-dark);font-weight:600;font-family:'Hind Siliguri',sans-serif;font-size:0.9rem">কোর্সে রেজিস্ট্রেশন করুন →</a>
     </div>
   </div>
-</section>
+  <footer><div class="footer-bottom" style="border:none">© 2026 Aponjon | <a onclick="showPage('home')" style="color:var(--green);cursor:pointer">← হোমে ফিরুন</a></div></footer>
+</div><!-- /page-education -->
 
-<!-- ══════════════════════════════════════════
-     SECTION 5 — AGRO
-══════════════════════════════════════════ -->
-<section id="agro" class="section">
-  <div class="section-inner">
-    <div class="section-eyebrow">টেকসই প্রকল্প · Sustainable</div>
-    <h2 class="section-title">🌱 APONJON Small Agro Project</h2>
-    <p class="section-subtitle">স্বাবলম্বী ও সুস্থ জীবন — Sustainable Living</p>
-    <div class="title-line"></div>
-    <div class="agro-banner">
-      <div class="agro-left">
-        <h3>ক্ষুদ্র কৃষি প্রকল্প</h3>
-        <p>বাড়িতে জৈব বাগান, ক্ষুদ্র কৃষি সহায়তা, হালাল পোলট্রি পালন ও সরাসরি মার্কেটপ্লেস — আপনার পরিবারকে স্বনির্ভর করুন ইসলামিক মূল্যবোধে।</p>
-        <div class="pill-row">
-          <span class="pill pill-tl">Organic</span>
-          <span class="pill pill-gr">Eco Friendly</span>
-          <span class="pill pill-tl">Self-Reliance</span>
-        </div>
-        <a href="#contact" class="btn-teal">প্রকল্পে যুক্ত হন →</a>
+
+<!-- ═══════════════════════════════════════════
+     ENTERTAINMENT & TOURISM PAGE
+═══════════════════════════════════════════ -->
+<div class="page" id="page-entertainment">
+  <div class="sub-hero purple-bg">
+    <a class="back-btn" onclick="showPage('home')">← হোমে ফিরুন</a>
+    <h1>বিনোদন ও পর্যটন</h1>
+    <div class="bangla-title">Leisure & Community — পরিবার-বান্ধব হালাল বিনোদন ও ভ্রমণ</div>
+    <p>পরিবারবান্ধব ইসলামিক কন্টেন্ট এবং হালাল ট্যুর প্যাকেজ — দেশে ও বিদেশে।</p>
+  </div>
+  <div class="sub-content">
+
+    <!-- Entertainment -->
+    <div class="sub-section">
+      <h2 style="color:var(--purple-dark)">🎬 Entertainment | বিনোদন</h2>
+      <div class="bangla-sub">পরিবার-বান্ধব কন্টেন্ট — ইসলামিক মূল্যবোধে</div>
+      <div class="features-grid">
+        <div class="feat-card p"><div class="feat-icon">🎥</div><h4>Islamic Documentaries</h4><p>ইসলামিক ইতিহাস, আলেমদের জীবনী ও মুসলিম সভ্যতার অনুপ্রেরণামূলক ডকুমেন্টারি।</p></div>
+        <div class="feat-card p"><div class="feat-icon">🎮</div><h4>Family Games & Activities</h4><p>হালাল-বান্ধব গেমস ও কার্যক্রম — পরিবারকে একত্রিত করার জন্য।</p></div>
+        <div class="feat-card p"><div class="feat-icon">📺</div><h4>Kids Islamic Content</h4><p>মুসলিম শিশুদের জন্য শিক্ষামূলক ও বিনোদনমূলক ভিডিও ও গল্প।</p></div>
+        <div class="feat-card p"><div class="feat-icon">🎵</div><h4>Nasheeds & Islamic Audio</h4><p>সুন্দর নাশিদ, কুরআন তেলাওয়াত ও ইসলামিক অডিও কন্টেন্ট।</p></div>
       </div>
-      <div class="agro-right">
-        <div class="agro-icons-big">🌿🚜💧</div>
-        <p style="font-family:'Hind Siliguri',sans-serif;font-size:0.84rem;color:#3a7a74">Farm-to-Table | Organic Only</p>
+      <div class="tag-row"><span class="tag p">Family Friendly</span><span class="tag p">Halal Certified</span><span class="tag p">All Ages</span><span class="tag p">Islamic Values</span></div>
+    </div>
+
+    <!-- Tourism -->
+    <div class="sub-section">
+      <h2 style="color:var(--purple-dark)">✈️ Aponjon Tourism | পর্যটন</h2>
+      <div class="bangla-sub">দেশ ও বিদেশ ভ্রমণ — ইসলামিক ট্যুর প্যাকেজ</div>
+      <div class="features-grid">
+        <div class="feat-card p"><div class="feat-icon">🕋</div><h4>Umrah & Hajj Packages</h4><p>গাইডেড উমরাহ ও হজ ট্যুর — ভিসা থেকে মক্কায় থাকা পর্যন্ত সম্পূর্ণ সাপোর্ট।</p></div>
+        <div class="feat-card p"><div class="feat-icon">🏛️</div><h4>Islamic Heritage Tours</h4><p>তুরস্ক, জর্ডান, ফিলিস্তিন ও মুসলিম বিশ্বের ঐতিহাসিক স্থান পরিদর্শন।</p></div>
+        <div class="feat-card p"><div class="feat-icon">🇧🇩</div><h4>Bangladesh Local Tours</h4><p>বাংলাদেশের মসজিদ, প্রকৃতি ও সাংস্কৃতিক ঐতিহ্যবাহী স্থান অন্বেষণ।</p></div>
+        <div class="feat-card p"><div class="feat-icon">🌍</div><h4>International Halal Travel</h4><p>হালাল খাবার ও নামাজের সুবিধাসহ আন্তর্জাতিক হালাল ট্রাভেল প্যাকেজ।</p></div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ══════════════════════════════════════════
-     CONTACT
-══════════════════════════════════════════ -->
-<section id="contact" class="section">
-  <div class="section-inner">
-    <div class="section-eyebrow">যোগাযোগ · Get In Touch</div>
-    <h2 class="section-title">আমাদের সাথে কথা বলুন</h2>
-    <p class="section-subtitle">যেকোনো প্রশ্ন, অর্ডার বা পার্টনারশিপের জন্য যোগাযোগ করুন</p>
-    <div class="title-line"></div>
-    <div class="contact-grid">
+    <div class="info-box">
+      <h3>🌙 হালালভাবে বিনোদন উপভোগ করুন</h3>
+      <p>Aponjon বিশ্বাস করে বিনোদন ও অবকাশ একজন মুসলিমের সুষম জীবনের গুরুত্বপূর্ণ অংশ। আমাদের সমস্ত কন্টেন্ট পরিবার-বান্ধব ও ইসলামিক মূল্যবোধ অনুযায়ী কিউরেট করা।</p>
+      <a onclick="showPage('contact')" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:var(--purple-dark);font-weight:600;font-family:'Hind Siliguri',sans-serif;cursor:pointer;font-size:0.9rem">আরও জানতে যোগাযোগ করুন →</a>
+    </div>
+  </div>
+  <footer><div class="footer-bottom" style="border:none">© 2026 Aponjon | <a onclick="showPage('home')" style="color:var(--purple);cursor:pointer">← হোমে ফিরুন</a></div></footer>
+</div><!-- /page-entertainment -->
+
+
+<!-- ═══════════════════════════════════════════
+     AGRO PAGE
+═══════════════════════════════════════════ -->
+<div class="page" id="page-agro">
+  <div class="sub-hero olive-bg">
+    <a class="back-btn" onclick="showPage('home')">← হোমে ফিরুন</a>
+    <h1>APONJON Small Agro Project</h1>
+    <div class="bangla-title">ক্ষুদ্র কৃষি প্রকল্প — স্বাবলম্বী ও সুস্থ জীবন</div>
+    <p>অর্গানিক কৃষি, হোম গার্ডেনিং ও ফার্ম-টু-টেবিল মার্কেটের মাধ্যমে স্বনির্ভর জীবন গড়ুন।</p>
+  </div>
+  <div class="sub-content">
+    <div class="sub-section">
+      <h2 style="color:#3e6b22">🌱 আমাদের কৃষি দর্শন — Our Agro Vision</h2>
+      <div class="bangla-sub">স্বাবলম্বিতা, পরিবেশ রক্ষা ও সুস্থ জীবনযাপন</div>
+      <div class="features-grid">
+        <div class="feat-card ol"><div class="feat-icon">🌿</div><h4>Home Gardening</h4><p>বাড়িতে জৈব বাগান শুরু করুন — বীজ, সরঞ্জাম, গাইডেন্স ও চলমান সাপোর্টসহ।</p></div>
+        <div class="feat-card ol"><div class="feat-icon">🚜</div><h4>Small Farm Support</h4><p>ক্ষুদ্র কৃষকদের জন্য প্রশিক্ষণ ও সরঞ্জাম — রাসায়নিকমুক্ত ফসল উৎপাদনের জন্য।</p></div>
+        <div class="feat-card ol"><div class="feat-icon">💧</div><h4>Water-Smart Farming</h4><p>সাশ্রয়ী সেচ পদ্ধতি ও পানি সংরক্ষণ — টেকসই কৃষির স্মার্ট সমাধান।</p></div>
+        <div class="feat-card ol"><div class="feat-icon">🐓</div><h4>Poultry & Livestock</h4><p>ছোট আকারের হালাল পোলট্রি ও পশুপালনের গাইডেন্স — পারিবারিক স্বনির্ভরতার জন্য।</p></div>
+        <div class="feat-card ol"><div class="feat-icon">♻️</div><h4>Composting & Fertilizer</h4><p>প্রাকৃতিক কম্পোস্ট ও সার তৈরি — বর্জ্য কমান, মাটির স্বাস্থ্য উন্নত করুন।</p></div>
+        <div class="feat-card ol"><div class="feat-icon">📦</div><h4>Farm-to-Table Market</h4><p>সরাসরি ক্রেতাদের সাথে সংযুক্ত হন — Aponjon মার্কেটপ্লেসে পণ্য বিক্রি করুন।</p></div>
+      </div>
+    </div>
+    <div class="info-box">
+      <h3>🌾 কেন Aponjon Agro?</h3>
+      <p>বাংলাদেশের কৃষি ঐতিহ্য সমৃদ্ধ। Aponjon পরিবারগুলিকে সেই ঐতিহ্য পুনরুদ্ধার করতে সক্ষম করতে চায় — নিজেদের খাবার উৎপাদন করা, রাসায়নিকের উপর নির্ভরতা কমানো এবং ভূমি থেকে টেকসই আয় গড়ে তোলা। এটি ইসলামিক খেলাফতের নীতিতে স্বনির্ভরতা।</p>
+      <div class="tag-row"><span class="tag ol">Organic Only</span><span class="tag ol">Family Income</span><span class="tag ol">Eco Friendly</span><span class="tag ol">Self-Reliance</span><span class="tag ol">Islamic Values</span></div>
+      <a onclick="showPage('contact')" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:#3e6b22;font-weight:600;font-family:'Hind Siliguri',sans-serif;cursor:pointer;font-size:0.9rem">প্রকল্পে যুক্ত হন →</a>
+    </div>
+  </div>
+  <footer><div class="footer-bottom" style="border:none">© 2026 Aponjon | <a onclick="showPage('home')" style="color:#6b8c42;cursor:pointer">← হোমে ফিরুন</a></div></footer>
+</div><!-- /page-agro -->
+
+
+<!-- ═══════════════════════════════════════════
+     CONTACT PAGE
+═══════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="sub-hero teal-bg">
+    <a class="back-btn" onclick="showPage('home')">← হোমে ফিরুন</a>
+    <h1>যোগাযোগ করুন</h1>
+    <div class="bangla-title">Contact Us — আমাদের সাথে যোগাযোগ করুন</div>
+    <p>যেকোনো সেবা সম্পর্কে জানতে, অর্ডার করতে বা পার্টনারশিপের জন্য যোগাযোগ করুন।</p>
+  </div>
+  <div class="sub-content">
+    <div class="contact-wrap">
       <div class="c-info">
         <div class="c-card"><div class="c-ico">📧</div><div><h5>Email</h5><p>info@aponjon.com</p></div></div>
-        <div class="c-card"><div class="c-ico">📞</div><div><h5>Phone · ফোন</h5><p>+880 1700-000000</p></div></div>
+        <div class="c-card"><div class="c-ico">📞</div><div><h5>Phone | ফোন</h5><p>+880 1700-000000</p></div></div>
         <div class="c-card"><div class="c-ico">💬</div><div><h5>WhatsApp</h5><p>+880 1700-000000</p></div></div>
-        <div class="c-card"><div class="c-ico">📍</div><div><h5>Address · ঠিকানা</h5><p>Dhaka, Bangladesh</p></div></div>
+        <div class="c-card"><div class="c-ico">📍</div><div><h5>Address | ঠিকানা</h5><p>Dhaka, Bangladesh</p></div></div>
         <div class="c-card"><div class="c-ico" style="background:var(--orange-light)">🌐</div><div><h5>Website</h5><p>www.aponjon.com</p></div></div>
       </div>
       <div class="c-form">
         <div class="cf-title">বার্তা পাঠান ✉️</div>
-        <div class="cf-sub">আমরা আপনার কথা শুনতে চাই — সাধারণত ২৪ ঘন্টার মধ্যে উত্তর দিই।</div>
+        <div class="cf-sub">আমরা আপনার কথা শুনতে চাই — যেকোনো প্রশ্ন বা অর্ডারের জন্য লিখুন।</div>
         <div class="fg-2">
           <div class="fg"><label>আপনার নাম *</label><input type="text" id="fn" placeholder="Full Name"/></div>
           <div class="fg"><label>Email Address *</label><input type="email" id="fe" placeholder="your@email.com"/></div>
         </div>
         <div class="fg"><label>WhatsApp নম্বর</label><input type="tel" id="fp" placeholder="+880 1XXXXXXXXX"/></div>
         <div class="fg"><label>আপনার বার্তা *</label><textarea id="fm" placeholder="আপনার বার্তা লিখুন..."></textarea></div>
-        <button class="form-submit" onclick="doSend()">বার্তা পাঠান →</button>
+        <button class="form-btn" onclick="doSend()">বার্তা পাঠান →</button>
         <p id="form-ok">✓ আপনার বার্তা পাঠানো হয়েছে। জাযাকাল্লাহু খাইরান!</p>
       </div>
     </div>
   </div>
-</section>
+  <footer><div class="footer-bottom" style="border:none">© 2026 Aponjon | <a onclick="showPage('home')" style="color:var(--teal);cursor:pointer">← হোমে ফিরুন</a></div></footer>
+</div><!-- /page-contact -->
 
-<!-- ══ FOOTER ══ -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="nav-logo">AP<span>O</span>NJON</div>
-      <p>আপনজনের সুরক্ষায় — Your Journey to Better Living. Islamic values, quality products, and community for every Bangladeshi Muslim family.</p>
-      <div class="social-row">
-        <div class="soc-btn" title="Facebook">f</div>
-        <div class="soc-btn" title="YouTube">▶</div>
-        <div class="soc-btn" title="WhatsApp">💬</div>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Quick Links</h4>
-      <a href="#academy">ফরজ ইলম একাডেমি</a>
-      <a href="#academy">ইসলামিক ফ্যাশন</a>
-      <a href="#products">খাঁটি খাদ্য পণ্য</a>
-      <a href="#products">হাইজিন পণ্য</a>
-      <a href="#education">শিক্ষা কোর্স</a>
-    </div>
-    <div class="footer-col">
-      <h4>Services</h4>
-      <a href="#leisure">বিনোদন</a>
-      <a href="#leisure">পর্যটন প্যাকেজ</a>
-      <a href="#agro">কৃষি প্রকল্প</a>
-      <a href="#contact">যোগাযোগ</a>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQOZrdeGvOXdNlozFI5iqYlljVkOSCE97HbMxPrk2deYRv9g/viewform" target="_blank">রেজিস্ট্রেশন</a>
-    </div>
-    <div class="footer-col footer-contact">
-      <h4>Contact</h4>
-      <p>📧 info@aponjon.com</p>
-      <p>📞 +880 1700-000000</p>
-      <p>💬 WhatsApp Available</p>
-      <p>📍 Dhaka, Bangladesh</p>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 Aponjon. All rights reserved. | আপনজনের সুরক্ষায়</span>
-    <span style="font-family:'Georgia',serif;color:rgba(255,255,255,0.15)">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</span>
-  </div>
-</footer>
 
 <script>
-// Mobile menu
-function toggleMob(){document.getElementById('mob-menu').classList.toggle('open');}
-function closeMob(){document.getElementById('mob-menu').classList.remove('open');}
-
-// Smooth scroll all anchor links
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    var t=document.querySelector(a.getAttribute('href'));
-    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});closeMob();}
-  });
-});
-
-// Contact form
-function doSend(){
-  var n=document.getElementById('fn').value.trim(),
-      e=document.getElementById('fe').value.trim(),
-      m=document.getElementById('fm').value.trim();
-  if(!n||!e||!m){alert('অনুগ্রহ করে সকল প্রয়োজনীয় তথ্য পূরণ করুন।');return;}
-  document.getElementById('form-ok').style.display='block';
-  document.getElementById('fn').value='';
-  document.getElementById('fe').value='';
-  document.getElementById('fp').value='';
-  document.getElementById('fm').value='';
-  setTimeout(()=>{document.getElementById('form-ok').style.display='none';},5000);
+/* ── PAGE SYSTEM (from aponjon0_1) ── */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-link'));
+  var navEl = document.getElementById('nav-' + id);
+  if (navEl) navEl.classList.add('active-link');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('nav-links').classList.remove('open');
 }
 
-// Navbar shadow on scroll
-window.addEventListener('scroll',()=>{
-  var nav=document.getElementById('main-nav');
-  nav.style.boxShadow=window.scrollY>40?'0 4px 30px rgba(0,0,0,0.25)':'0 2px 20px rgba(0,0,0,0.15)';
-});
+/* ── HAMBURGER ── */
+function toggleMenu() {
+  document.getElementById('nav-links').classList.toggle('open');
+}
+
+/* ── CONTACT FORM ── */
+function doSend() {
+  var n = document.getElementById('fn').value.trim(),
+      e = document.getElementById('fe').value.trim(),
+      m = document.getElementById('fm').value.trim();
+  if (!n || !e || !m) { alert('অনুগ্রহ করে সকল প্রয়োজনীয় তথ্য পূরণ করুন।'); return; }
+  document.getElementById('form-ok').style.display = 'block';
+  document.getElementById('fn').value = '';
+  document.getElementById('fe').value = '';
+  document.getElementById('fp').value = '';
+  document.getElementById('fm').value = '';
+  setTimeout(function(){ document.getElementById('form-ok').style.display = 'none'; }, 5000);
+}
 </script>
 </body>
 </html>
